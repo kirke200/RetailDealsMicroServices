@@ -1,0 +1,32 @@
+version: '3'
+services:
+  apiendpoint-service:
+    image: apiendpoint-image
+    container_name: apiendpoint-container
+    ports:
+      - "8080:8080"
+  
+  dataminer-service:
+    image: dataminer-image
+    container_name: dataminer-container
+
+  identitymanager-service:
+    image: identitymanager-image
+    container_name: identitymanager-container
+
+  locationmanager-service:
+    image: locationmanager-image
+    container_name: locationmanager-container
+
+  offermanager-service:
+    image: offermanager-image
+    container_name: offermanager-container
+
+  recipemanager-service:
+    image: recipemanager-image
+    container_name: recipemanager-container
+
+  retailitemupdater-service:
+    image: retailitemupdater-image
+    container_name: retailitemupdater-container
+
