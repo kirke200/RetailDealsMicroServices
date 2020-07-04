@@ -1,19 +1,30 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using RetailItemUpdater.DI;
+using RetailOffers.MessagingUtilities.RabbitMq;
 
 namespace RetailItemUpdater
 {
-    class Program
+    public class Program
     {
-        static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
-            var counter = 0;
-            var max = args.Length != 0 ? Convert.ToInt32(args[0]) : -1;
-            while (max == -1 || counter < max)
-            {
-                Console.WriteLine($"Counter: {++counter}");
-                await Task.Delay(1000);
-            }
+
+             CreateHostBuilder(args).Build().Run();
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }
