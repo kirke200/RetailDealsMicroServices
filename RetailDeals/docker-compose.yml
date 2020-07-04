@@ -1,32 +1,47 @@
 version: '3'
 services:
-  apiendpoint-service:
-    image: apiendpoint-image
-    container_name: apiendpoint-container
-    ports:
-      - "8080:8080"
+    rabbitmq:
+        image: rabbitmq:3-management-alpine
+        container_name: rabbitmq
+        volumes:
+            - ./.docker/rabbitmq/etc/:/etc/rabbitmq/
+            - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/mnesia 
+            - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
+        environment:
+            RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
+            RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+            RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+        ports:
+            - 5672:5672
+            - 15672:15672
+
+    apigateway-service:
+        image: apigateway-image
+        container_name: apigateway-container
+        ports:
+          - "8080:80"
   
-  dataminer-service:
-    image: dataminer-image
-    container_name: dataminer-container
+    dataminer-service:
+        image: dataminer-image
+        container_name: dataminer-container
 
-  identitymanager-service:
-    image: identitymanager-image
-    container_name: identitymanager-container
+    identitymanager-service:
+        image: identitymanager-image
+        container_name: identitymanager-container
 
-  locationmanager-service:
-    image: locationmanager-image
-    container_name: locationmanager-container
+    locationmanager-service:
+        image: locationmanager-image
+        container_name: locationmanager-container
 
-  offermanager-service:
-    image: offermanager-image
-    container_name: offermanager-container
+    offermanager-service:
+        image: offermanager-image
+        container_name: offermanager-container
 
-  recipemanager-service:
-    image: recipemanager-image
-    container_name: recipemanager-container
+    recipemanager-service:
+        image: recipemanager-image
+        container_name: recipemanager-container
 
-  retailitemupdater-service:
-    image: retailitemupdater-image
-    container_name: retailitemupdater-container
+    retailitemupdater-service:
+        image: retailitemupdater-image
+        container_name: retailitemupdater-container
 
