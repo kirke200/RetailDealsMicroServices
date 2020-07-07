@@ -28,7 +28,7 @@ namespace RetailOffers.MessagingUtilities.RabbitMq
         {
             var eventReceiver = _serviceProvider.GetService<IEventReceiver<TEvent>>();
 
-            _factory = new ConnectionFactory() { HostName = "rabbitmq" }; //TODO: Change hostname to not be hardcoded
+            _factory = new ConnectionFactory() { HostName = "localhost" }; //TODO: Change hostname to not be hardcoded. For some reason this has to be "localhost" if you run it manually but "rabbitmq" when running with docker
             _connection = _factory.CreateConnection();
             _channel = _connection.CreateModel();
 

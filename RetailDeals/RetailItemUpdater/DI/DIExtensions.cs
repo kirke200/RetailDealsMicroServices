@@ -4,6 +4,7 @@ using RetailItemUpdater.Domain.Adapters.Abstractions.CoopApi;
 using RetailItemUpdater.Domain.Adapters.CoopApiAdapter;
 using RetailItemUpdater.Domain.DAL.Abstractions;
 using RetailItemUpdater.Domain.DAL.InMemoryRepository;
+using RetailItemUpdater.Domain.DAL.MongoDBRepository;
 using RetailItemUpdater.Domain.Services;
 using RetailItemUpdater.Domain.Services.Abstractions;
 using RetailItemUpdater.Events;
@@ -24,7 +25,7 @@ namespace RetailItemUpdater
             services.AddSingleton<IMessagingLogger, MessagingLogger>();
 
             //Adapters
-            services.AddScoped<ICoopStoreApi, CoopApiAdapter>();
+            services.AddSingleton<ICoopStoreApi, CoopApiAdapter>();
 
             //Event receivers
             services.AddSingleton<IEventReceiver<TestEvent>, TestEventReceiver>();
@@ -35,10 +36,10 @@ namespace RetailItemUpdater
             services.AddSingleton<IRabbitMqListener<UpdateRetailGroupsRequested>, RabbitMqListener<UpdateRetailGroupsRequested>>();
 
             //Repositories
-            services.AddScoped<IRetailGroupsRepository, InMemoryRepository>();
+            services.AddSingleton<IRetailGroupsRepository, RetailGroupsRepository>();
 
             //Services
-            services.AddScoped<IRetailGroupsUpdater, RetailGroupUpdater>();
+            services.AddSingleton<IRetailGroupsUpdater, RetailGroupUpdater>();
         }
     }
 }
