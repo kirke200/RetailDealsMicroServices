@@ -10,6 +10,12 @@ namespace RetailItemUpdater.Domain.DAL.InMemoryRepository
     public class InMemoryRepository : IRetailGroupsRepository
     {
         private List<RetailGroup> _retailGroups = new List<RetailGroup>();
+
+        public void CreateRetailGroupsIfNotExists(List<RetailGroup> retailGroups)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<RetailGroup> GetAllRetailGroups()
         {
             return _retailGroups;
@@ -21,6 +27,11 @@ namespace RetailItemUpdater.Domain.DAL.InMemoryRepository
         }
 
         public RetailGroup GetRetailGroup(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateOrCreateRetailGroups(List<RetailGroup> retailGroups)
         {
             throw new NotImplementedException();
         }

@@ -12,5 +12,7 @@ namespace RetailItemUpdater.Domain.DAL.Abstractions
         RetailGroup GetRetailGroup(string name);
         RetailGroup GetRetailGroup(Guid id);
         void UpdateRetailGroups(List<RetailGroup> retailGroups);
+        void UpdateOrCreateRetailGroups(List<RetailGroup> retailGroups);
+        void CreateRetailGroupsIfNotExists(List<RetailGroup> retailGroups);
     }
 }
