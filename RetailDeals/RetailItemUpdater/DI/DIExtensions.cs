@@ -7,10 +7,14 @@ using RetailItemUpdater.Domain.DAL.InMemoryRepository;
 using RetailItemUpdater.Domain.DAL.MongoDBRepository;
 using RetailItemUpdater.Domain.Services;
 using RetailItemUpdater.Domain.Services.Abstractions;
+using RetailItemUpdater.DTO;
 using RetailItemUpdater.Events;
 using RetailItemUpdater.Events.Receivers;
+using RetailItemUpdater.Handlers.RetailGroups;
+using RetailItemUpdater.Queries;
 using RetailOffers.MessagingUtilities;
 using RetailOffers.MessagingUtilities.RabbitMq;
+using RetailOffers.MessagingUtilities.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +44,9 @@ namespace RetailItemUpdater
 
             //Services
             services.AddSingleton<IRetailGroupsUpdater, RetailGroupUpdater>();
+
+            //Handlers
+            services.AddSingleton<IQueryHandler<GetRetailGroup, RetailGroupDto>, GetRetailGroupHandler>(); //TODO: Gør det her til det der dispatcher halløj
         }
     }
 }

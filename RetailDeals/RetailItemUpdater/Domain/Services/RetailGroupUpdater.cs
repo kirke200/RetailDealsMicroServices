@@ -31,7 +31,7 @@ namespace RetailItemUpdater.Domain.Services
                 Name = x.Name
             }).ToList();
 
-            _retailGroupsRepository.CreateRetailGroupsIfNotExists(retialGroups);
+            await _retailGroupsRepository.CreateRetailGroupsIfNotExistsAsync(retialGroups);
 
             Console.WriteLine("Retail groups updated");
 

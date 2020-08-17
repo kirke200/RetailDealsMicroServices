@@ -3,6 +3,7 @@ using RetailItemUpdater.Domian.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace RetailItemUpdater.Domain.DAL.InMemoryRepository
@@ -16,29 +17,41 @@ namespace RetailItemUpdater.Domain.DAL.InMemoryRepository
             throw new NotImplementedException();
         }
 
+        public Task CreateRetailGroupsIfNotExistsAsync(List<RetailGroup> retailGroups)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<RetailGroup> GetAllRetailGroups()
         {
             return _retailGroups;
         }
 
-        public RetailGroup GetRetailGroup(string name)
+        public Task<List<RetailGroup>> GetAllRetailGroupsAsync()
+        {
+            return Task.FromResult(_retailGroups);
+        }
+
+        public Task<RetailGroup> GetRetailGroupAsync(string id)
         {
             throw new NotImplementedException();
         }
 
-        public RetailGroup GetRetailGroup(Guid id)
+        public Task<RetailGroup> GetRetailGroupFromNameAsync(string name)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateOrCreateRetailGroups(List<RetailGroup> retailGroups)
+        public Task UpdateOrCreateRetailGroupsAsync(List<RetailGroup> retailGroups)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateRetailGroups(List<RetailGroup> retailGroups)
+        public Task UpdateRetailGroupsAsync(List<RetailGroup> retailGroups)
         {
             _retailGroups = retailGroups;
+
+            return Task.CompletedTask;
         }
     }
 }

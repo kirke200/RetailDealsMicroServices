@@ -38,6 +38,8 @@ namespace RetailItemUpdater
             services.AddSingleton<MongoDbContext>();
             services.InjectServices();
             services.SubscribeToQueues();
+
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,10 +54,7 @@ namespace RetailItemUpdater
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
 
         }

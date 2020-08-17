@@ -17,38 +17,42 @@ namespace RetailItemUpdater.Domain.DAL.MongoDBRepository
             _retailGroups = dbContext.RetailGroups;
         }
 
-        public void CreateRetailGroupsIfNotExists(List<RetailGroup> retailGroups)
+        public async Task CreateRetailGroupsIfNotExistsAsync(List<RetailGroup> retailGroups)
         {
             foreach (var retailGroup in retailGroups)
             {
                 var options = new ReplaceOptions();
                 options.IsUpsert = true;
                 var filter = Builders<RetailGroup>.Filter.Where(x => x.Name == retailGroup.Name);
-                _retailGroups.ReplaceOneAsync(filter, retailGroup, options);
+                await _retailGroups.ReplaceOneAsync(filter, retailGroup, options);
             }
         }
 
-        public List<RetailGroup> GetAllRetailGroups()
+        public Task<List<RetailGroup>> GetAllRetailGroupsAsync()
         {
             throw new NotImplementedException();
         }
 
-        public RetailGroup GetRetailGroup(string name)
+        public async Task<RetailGroup> GetRetailGroupFromNameAsync(string name)
+        {
+            var filter = Builders<RetailGroup>.Filter.Where(x => x.Name == name);
+            var retailGroup = await _retailGroups.FindAsync(filter);
+            return retailGroup.ToList().FirstOrDefault();
+        }
+
+        public async Task<RetailGroup> GetRetailGroupAsync(string id)
+        {
+            var filter = Builders<RetailGroup>.Filter.Where(x => x.Id == id);
+            var retailGroup = await _retailGroups.FindAsync(filter);
+            return retailGroup.ToList().FirstOrDefault();
+        }
+
+        public Task UpdateOrCreateRetailGroupsAsync(List<RetailGroup> retailGroups)
         {
             throw new NotImplementedException();
         }
 
-        public RetailGroup GetRetailGroup(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateOrCreateRetailGroups(List<RetailGroup> retailGroups)
-        {
-            
-        }
-
-        public void UpdateRetailGroups(List<RetailGroup> retailGroups)
+        public Task UpdateRetailGroupsAsync(List<RetailGroup> retailGroups)
         {
             throw new NotImplementedException();
         }
