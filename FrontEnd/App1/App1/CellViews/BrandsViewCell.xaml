@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="App1.CellViews.BrandsViewCell">
+  <ViewCell.View>
+      <StackLayout>
+            <Grid Margin="0,0,0,2" BackgroundColor="Black">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image x:Name="BrandTicked" Grid.Column="0" Grid.Row="0" Source="https://www.clipartmax.com/png/middle/301-3011315_icon-check-green-tick-transparent-background.png"></Image>
+                <Image x:Name="BrandIamge" Grid.Column="1" Aspect="AspectFill" Grid.Row="0"></Image>
+                       
+                <Label x:Name="TransparentLabel" Grid.Column="0" Grid.Row="0" VerticalOptions="End" HorizontalOptions="FillAndExpand" HeightRequest="50" BackgroundColor="WhiteSmoke" Opacity="0.6"/>
+               
+            </Grid>
+        </StackLayout>
+  </ViewCell.View>
+</ViewCell>
