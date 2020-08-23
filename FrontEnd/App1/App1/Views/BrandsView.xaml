@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             mc:Ignorable="d"
+             Title="Select brands"
+             x:Class="App1.Views.BrandsView">
+    <ContentPage.Content>
+
+
+       
+        
+        <Grid>
+ 
+            <ListView x:Name="brandsListView" ItemsSource="{Binding Brands}" RowHeight="80" Grid.Row="0" Grid.Column="0" BackgroundColor="white" ItemTapped="brandsListView_ItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate >
+                    <ViewCell >
+                            <StackLayout Orientation="Horizontal">
+                                <Frame CornerRadius="100" IsClippedToBounds="True" HeightRequest="40" WidthRequest="40">
+                                    <Image  Source="{Binding ImageUrl}" ScaleX="1.5" ScaleY="1.5" />
+                                </Frame>
+                                <input:CheckBox  HorizontalOptions="EndAndExpand" Scale="1.5" Margin="0,0,20,0" Color="#2BED79" CheckChanged="CheckBox_CheckChanged"  IsChecked="{Binding isCheck,Mode=TwoWay}"/>
+                            </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+            <ImageButton Source="Tick.png" x:Name="DoneButton"  WidthRequest="60"  HeightRequest="60" CornerRadius="30"  Grid.Row="0" Margin="0,0,0,10" Grid.Column="0" VerticalOptions="End" HorizontalOptions="Center"  BorderWidth="1" BorderColor="Black" BackgroundColor="White" Clicked="DoneButton_Clicked"></ImageButton>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

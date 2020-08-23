@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="App1.Views.DishView">
+    
+        <NavigationPage.TitleView>
+            <Grid>
+                <Label  x:Name="HeaderTitle" Text="" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="White" FontAttributes="Bold"/>
+            </Grid>
+        </NavigationPage.TitleView>
+    
+    <ContentPage.Content>
+
+
+        <StackLayout>
+            <Image Grid.Column="0" Grid.Row="0"  Aspect="AspectFill"  HeightRequest="200" Source="{Binding ImageUrl}"/>
+            <Label Text="Ingredients" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" VerticalTextAlignment ="Center"/>
+            <ListView x:Name="IngredientsList" IsEnabled="False">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding .}" Margin="20,0,0,0" HorizontalOptions="Start" VerticalOptions="Center"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="+" WidthRequest="60"  HeightRequest="60" CornerRadius="30" Margin="0, 0, 20, 20" VerticalOptions="Start" HorizontalOptions="End" FontAttributes="Bold" BackgroundColor="#6d9eeb" Clicked="Button_Clicked"></Button>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

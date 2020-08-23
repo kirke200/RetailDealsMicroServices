@@ -9,10 +9,18 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+    <PackageReference Include="MongoDB.Bson" Version="2.10.4" />
+    <PackageReference Include="MongoDB.Driver" Version="2.10.4" />
+    <PackageReference Include="RestEase" Version="1.5.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RetailOffers.MessagingUtilities\RetailOffers.MessagingUtilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Api\Internal\" />
   </ItemGroup>
 
 </Project>

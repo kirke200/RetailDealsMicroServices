@@ -7,18 +7,27 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net.Http.Formatting;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace RetailItemUpdater.Domain.Adapters.CoopApiAdapter
 {
     public partial class CoopApiAdapter : ICoopStoreApi
     {
+        private readonly IConfiguration _configuration;
+
+        public CoopApiAdapter(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public async Task<RetailGroupsDTO> GetAllRetailGroups()
         {
             Console.WriteLine("Getting stores from coop");
-            _client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "5e8f23af5e7f43ae8ec60e804333e094");
-            var uri = "https://apidemo.cl.coop.dk/storeapi/v1/stores/retailGroups";
+            _client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", _configuration["Coop_SubscriptionKey"]); //TODO: Add to appsettings!!
+            var uri = _configuration["Coop_Url"];
 
-            var response = (HttpResponseMessage) await _client.GetAsync(uri);
+            var response = await _client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
             {

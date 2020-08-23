@@ -1,0 +1,9 @@
+{
+	"commands": {
+		"BuildAndPublishAll": {
+			"FileName": "cmd.exe",
+			"WorkingDirectory": ".",
+			"Arguments": "/e BuildAndPublishAll.ps1"
+		}
+	}
+}

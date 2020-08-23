@@ -4,12 +4,17 @@ using RetailItemUpdater.Domain.Adapters.Abstractions.CoopApi;
 using RetailItemUpdater.Domain.Adapters.CoopApiAdapter;
 using RetailItemUpdater.Domain.DAL.Abstractions;
 using RetailItemUpdater.Domain.DAL.InMemoryRepository;
+using RetailItemUpdater.Domain.DAL.MongoDBRepository;
 using RetailItemUpdater.Domain.Services;
 using RetailItemUpdater.Domain.Services.Abstractions;
+using RetailItemUpdater.DTO;
 using RetailItemUpdater.Events;
 using RetailItemUpdater.Events.Receivers;
+using RetailItemUpdater.Handlers.RetailGroups;
+using RetailItemUpdater.Queries;
 using RetailOffers.MessagingUtilities;
 using RetailOffers.MessagingUtilities.RabbitMq;
+using RetailOffers.MessagingUtilities.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +29,7 @@ namespace RetailItemUpdater
             services.AddSingleton<IMessagingLogger, MessagingLogger>();
 
             //Adapters
-            services.AddScoped<ICoopStoreApi, CoopApiAdapter>();
+            services.AddSingleton<ICoopStoreApi, CoopApiAdapter>();
 
             //Event receivers
             services.AddSingleton<IEventReceiver<TestEvent>, TestEventReceiver>();
@@ -35,10 +40,13 @@ namespace RetailItemUpdater
             services.AddSingleton<IRabbitMqListener<UpdateRetailGroupsRequested>, RabbitMqListener<UpdateRetailGroupsRequested>>();
 
             //Repositories
-            services.AddScoped<IRetailGroupsRepository, InMemoryRepository>();
+            services.AddSingleton<IRetailGroupsRepository, RetailGroupsRepository>();
 
             //Services
-            services.AddScoped<IRetailGroupsUpdater, RetailGroupUpdater>();
+            services.AddSingleton<IRetailGroupsUpdater, RetailGroupUpdater>();
+
+            //Handlers
+            services.AddSingleton<IQueryHandler<GetRetailGroup, RetailGroupDto>, GetRetailGroupHandler>(); //TODO: Gør det her til det der dispatcher halløj
         }
     }
 }

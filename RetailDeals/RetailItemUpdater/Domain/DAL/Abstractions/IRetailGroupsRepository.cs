@@ -8,9 +8,11 @@ namespace RetailItemUpdater.Domain.DAL.Abstractions
 {
     public interface IRetailGroupsRepository
     {
-        List<RetailGroup> GetAllRetailGroups();
-        RetailGroup GetRetailGroup(string name);
-        RetailGroup GetRetailGroup(Guid id);
-        void UpdateRetailGroups(List<RetailGroup> retailGroups);
+        Task<List<RetailGroup>> GetAllRetailGroupsAsync();
+        Task<RetailGroup> GetRetailGroupFromNameAsync(string name);
+        Task<RetailGroup> GetRetailGroupAsync(string id);
+        Task UpdateRetailGroupsAsync(List<RetailGroup> retailGroups);
+        Task UpdateOrCreateRetailGroupsAsync(List<RetailGroup> retailGroups);
+        Task CreateRetailGroupsIfNotExistsAsync(List<RetailGroup> retailGroups);
     }
 }
