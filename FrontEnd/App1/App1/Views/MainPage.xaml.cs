@@ -22,6 +22,8 @@ namespace App1.View
         DishViewModel dvm = new DishViewModel();
         SpecialOfferViewModel sovm = new SpecialOfferViewModel();
         ListViewModel lvm = new ListViewModel();
+        BrandsViewModel bvm = new BrandsViewModel();
+
 
         ICommand GoToSpecialItemListCommand;
         ICommand GoToNewListPageCommand;
@@ -37,7 +39,7 @@ namespace App1.View
             currentPageIndicator = labelHouse;
 
             GoToSpecialItemListCommand = new Command(() => Navigation.PushAsync(new SpecialOffersPage()));
-            GoToNewListPageCommand = new Command(() => Navigation.PushAsync(new NewListPage()));
+            GoToNewListPageCommand = new Command(() => Navigation.PushAsync(new NewListPage(bvm, lvm)));
 
             BindingContext = dvm;
 
@@ -87,6 +89,7 @@ namespace App1.View
          
             NavBarMinimize();
             ChangeListView(listViewMainDishes);
+
             AnimateImageButton(AddNewItemButton,0,120,800);
 
             NewPageSelected(labelBestik);
@@ -155,7 +158,7 @@ namespace App1.View
 
             Dish dish = e.Item as Dish;          
 
-            Navigation.PushAsync(new DishView(dish));          
+            Navigation.PushAsync(new DishView(dish, lvm));          
 
             if (sender is ListView lv) lv.SelectedItem = null;
 
@@ -220,7 +223,7 @@ namespace App1.View
             Device.StartTimer(TimeSpan.FromMilliseconds(400), () =>
             {
                 AnimateNavBarOut();
-                ScaleImageButton(ImageButtonHeader, 1, 800, Easing.BounceOut);
+                ScaleImageButton(ImageButtonHeader, 1, 700, Easing.BounceOut);
                 return false;
             });
         }
@@ -249,14 +252,13 @@ namespace App1.View
         double navWidth = 0.2;
         void AnimateNavBarOut()
         {          
-            MainGrid.ColumnDefinitions[1].Width = new GridLength(navWidth, GridUnitType.Star);
 
             Device.StartTimer(TimeSpan.FromMilliseconds(5), () =>
             {
                 navWidth -= 0.03;
                 if (navWidth <= 0)
                     navWidth = 0;
-                MainGrid.ColumnDefinitions[1].Width = new GridLength(navWidth, GridUnitType.Star);
+                navbarColumnDef.Width = new GridLength(navWidth, GridUnitType.Star);
                 if (navWidth == 0)
                 {
                     return false;

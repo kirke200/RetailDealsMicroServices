@@ -1,4 +1,5 @@
 ﻿using App1.Models;
+using App1.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,8 @@ namespace App1.Views
     public partial class DishView : ContentPage
     {
         Dish dish;
-        public DishView(Dish d)
+        ListViewModel lvm;
+        public DishView(Dish d, ListViewModel _lvm)
         {
             InitializeComponent();
 
@@ -22,6 +24,7 @@ namespace App1.Views
 
             BindingContext = dish;
 
+            lvm = _lvm;
 
             IngredientsList.ItemsSource = dish.ingredients;
 
@@ -30,6 +33,19 @@ namespace App1.Views
 
         private void Button_Clicked(object sender, EventArgs e)
         {
+
+            MyList myList = new MyList();
+
+            myList.Topic = dish.Topic;
+
+            myList.Price = dish.Price;
+
+            myList.items = dish.ingredients;
+
+            myList.CalcItemCount();
+
+            lvm.AddNewList(myList);
+
             Navigation.PopAsync();
 
         }

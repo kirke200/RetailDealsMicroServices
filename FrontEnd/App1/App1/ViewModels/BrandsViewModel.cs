@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace App1.ViewModels
 {
-    class BrandsViewModel
+   public class BrandsViewModel
     {
         public ObservableCollection<Brand> Brands { get; set; }
 
@@ -23,7 +23,7 @@ namespace App1.ViewModels
         }
 
 
-
+        
 
     }
 }
