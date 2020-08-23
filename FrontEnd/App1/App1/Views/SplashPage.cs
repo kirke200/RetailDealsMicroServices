@@ -11,6 +11,8 @@ namespace App1.Views
     {
         Image splashImage;
 
+        
+
         bool finishedLoading = true;
 
 

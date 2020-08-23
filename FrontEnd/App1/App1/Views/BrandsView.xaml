@@ -22,7 +22,7 @@
                                 <Frame CornerRadius="100" IsClippedToBounds="True" HeightRequest="40" WidthRequest="40">
                                     <Image  Source="{Binding ImageUrl}" ScaleX="1.5" ScaleY="1.5" />
                                 </Frame>
-                                <input:CheckBox  HorizontalOptions="EndAndExpand" Scale="1.5" Margin="0,0,20,0" Color="#6d9eeb" CheckChanged="CheckBox_CheckChanged"  IsChecked="{Binding isCheck,Mode=TwoWay}"/>
+                                <input:CheckBox  HorizontalOptions="EndAndExpand" Scale="1.5" Margin="0,0,20,0" Color="#2BED79" CheckChanged="CheckBox_CheckChanged"  IsChecked="{Binding isCheck,Mode=TwoWay}"/>
                             </StackLayout>
                     </ViewCell>
                 </DataTemplate>

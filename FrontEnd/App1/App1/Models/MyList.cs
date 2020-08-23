@@ -18,8 +18,8 @@ namespace App1.Models
 
 
 
-        public List<MyList> GetLists(){
-            List<MyList> Lists = new List<MyList> { new MyList { items = { "item 1", "item 2", "item 3" }, Topic = "Indkøbsliste", Price = 120.95F, itemCount = 0 }, new MyList { items = { "item 1", "item 2", "item 3" }, Topic = "Indkøbsliste", Price = 120.95F, itemCount = 0 }, new MyList { items = { "item 1", "item 2", "item 3" }, Topic = "Indkøbsliste", Price = 120.95F, itemCount = 0 }, new MyList { items = { "item 1", "item 2", "item 3" }, Topic = "Indkøbsliste", Price = 120.95F, itemCount = 0 }, new MyList { items = { "item 1", "item 2", "item 3" }, Topic = "Indkøbsliste", Price = 120.95F, itemCount = 0 }, new MyList { items = { "item 1", "item 2", "item 3" }, Topic = "Indkøbsliste", Price = 120.95F, itemCount = 0 }, new MyList { items = {"item 1", "item 2", "item 3"}, Topic = "Indkøbsliste", Price = 120.95F , itemCount= 0}, new MyList { items = { "item 1", "item 2" }, itemCount= 10, Topic = "Fest", Price = 1200 } };
+        public ObservableCollection<MyList> GetLists(){
+            ObservableCollection<MyList> Lists = new ObservableCollection<MyList> { new MyList { items = { "item 1", "item 2", "item 3" }, Topic = "Indkøbsliste", Price = 120.95F, itemCount = 0 }, new MyList { items = { "item 1", "item 2", "item 3" }, Topic = "Indkøbsliste", Price = 120.95F, itemCount = 0 }, new MyList { items = { "item 1", "item 2", "item 3" }, Topic = "Indkøbsliste", Price = 120.95F, itemCount = 0 }, new MyList { items = { "item 1", "item 2", "item 3" }, Topic = "Indkøbsliste", Price = 120.95F, itemCount = 0 }, new MyList { items = { "item 1", "item 2", "item 3" }, Topic = "Indkøbsliste", Price = 120.95F, itemCount = 0 }, new MyList { items = { "item 1", "item 2", "item 3" }, Topic = "Indkøbsliste", Price = 120.95F, itemCount = 0 }, new MyList { items = {"item 1", "item 2", "item 3"}, Topic = "Indkøbsliste", Price = 120.95F , itemCount= 0}, new MyList { items = { "item 1", "item 2" }, itemCount= 10, Topic = "Fest", Price = 1200 } };
             return Lists; }
     
         

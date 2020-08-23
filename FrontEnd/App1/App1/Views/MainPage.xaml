@@ -13,6 +13,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
 
+
+
             </Grid.ColumnDefinitions>
 
             <Image x:Name="HeaderImage" Source="LogoHeader.PNG"  BackgroundColor="Black"  Scale="0.8"  Grid.Column="1" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand"/>
@@ -36,48 +38,31 @@
         <StackLayout x:Name="NavigationBar" Grid.Row="0" Grid.Column="1" BackgroundColor="White">
             <StackLayout >
                 <ImageButton x:Name="house"  Padding="-20,-20,-20,-20"  WidthRequest="60"  HeightRequest="60" CornerRadius="30"  HorizontalOptions="Center" BackgroundColor="White" Source="Home.png"  Clicked="ImageButton_Clicked_House"/>
-                <Label x:Name="labelHouse"  HeightRequest="5" Margin="0,0,5,0" BackgroundColor="#2BED79"></Label>
+                <Label x:Name="labelHouse"  HeightRequest="5" Margin="5,0,5,0" BackgroundColor="#2BED79"></Label>
             </StackLayout>
 
             <StackLayout >
                 <ImageButton x:Name="list"     WidthRequest="60"  Padding="-20,-20,-20,-20"   HeightRequest="60" CornerRadius="30"   HorizontalOptions="Center" BackgroundColor="White" Source="List.png"   Clicked="ImageButton_Clicked_Lists" />
-                <Label x:Name="labelList" WidthRequest="40" HeightRequest="5" Margin="0,0,5,0" BackgroundColor="#FFFFFF"></Label>
+                <Label x:Name="labelList" WidthRequest="40" HeightRequest="5" Margin="5,0,5,0"  BackgroundColor="#FFFFFF"></Label>
             </StackLayout>
             
             <StackLayout >
             <ImageButton x:Name="bestik"   WidthRequest="60"  HeightRequest="60" CornerRadius="30" HorizontalOptions="Center" BackgroundColor="White" Source="bestik.png" Clicked="ImageButton_Clicked_Dishes" />
-                <Label x:Name="labelBestik" WidthRequest="40" HeightRequest="5" Margin="0,0,5,0" BackgroundColor="#FFFFFF"></Label>
+                <Label x:Name="labelBestik" WidthRequest="40" HeightRequest="5" Margin="5,0,5,0" BackgroundColor="#FFFFFF"></Label>
             </StackLayout>
 
             <StackLayout >
                 <ImageButton x:Name="search"   WidthRequest="60"   Padding="-30,-30,-30,-30"  HeightRequest="60" CornerRadius="50"   HorizontalOptions="Center" BackgroundColor="White" Source="Search.png" Clicked="ImageButton_Clicked_SpeacialItems" />
-                <Label x:Name="labelSearch" WidthRequest="10" HeightRequest="5" Margin="0,0,5,0" BackgroundColor="#FFFFFF"></Label>
+                <Label x:Name="labelSearch" WidthRequest="10" HeightRequest="5" Margin="5,0,5,0" BackgroundColor="#FFFFFF"></Label>
             </StackLayout>
         </StackLayout>
 
        
         <Grid Grid.Row="0" Grid.Column="0" BackgroundColor="White" >
-            <ListView x:Name="listViewMainDishes" ItemsSource="{Binding Dishes}" IsVisible="false" RowHeight="200" ItemTapped="listViewMainDishes_ItemTapped">
-                <ListView.ItemTemplate  >
-                    <DataTemplate >
-                        <ViewCell >
-                            <Grid Margin="0,0,0,2" BackgroundColor="Black">
-                                <Image Grid.Column="0" Aspect="AspectFill" Grid.Row="0" Source="{Binding ImageUrl}"></Image>
-                                
-                                
-                                <Label x:Name="TransparentLabel" Grid.Column="0" Grid.Row="0" VerticalOptions="End" HorizontalOptions="FillAndExpand" HeightRequest="50" BackgroundColor="WhiteSmoke" Opacity="0.6"/>
-                                <StackLayout Orientation="Horizontal" VerticalOptions="End" HeightRequest="50"  >
-                                    <Label Text="{Binding Topic}" Margin="20,0,0,0" VerticalTextAlignment="Center" TextColor="Black" />
-                                    <Label Text="{Binding Price}" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="End" TextColor="Black"  />
-                                    <Label VerticalTextAlignment="Center" Margin="0,0,20,0" TextColor="Black" Text=",-"/>
-
-                                </StackLayout>
-                            </Grid>
-                        </ViewCell>
-
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            
+            
+            
+            
 
             <ListView x:Name="listViewMainSpecialOffers" ItemsSource="{Binding SpecialOffers}" ItemTapped="listViewMainSpecialOffers_ItemTapped" RowHeight="100">
                 <ListView.ItemTemplate>
@@ -110,23 +95,45 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            
+            
+            <ListView x:Name="listViewMainDishes" ItemsSource="{Binding Dishes}" IsVisible="false" RowHeight="200" ItemTapped="listViewMainDishes_ItemTapped">
+                <ListView.ItemTemplate  >
+                    <DataTemplate >
+                        <ViewCell >
+                            <Grid Margin="0,0,0,2" BackgroundColor="Black">
+                                <Image Grid.Column="0" Aspect="AspectFill" Grid.Row="0" Source="{Binding ImageUrl}"></Image>
+
+
+                                <Label x:Name="TransparentLabel" Grid.Column="0" Grid.Row="0" VerticalOptions="End" HorizontalOptions="FillAndExpand" HeightRequest="50" BackgroundColor="WhiteSmoke" Opacity="0.6"/>
+                                <StackLayout Orientation="Horizontal" VerticalOptions="End" HeightRequest="50"  >
+                                    <Label Text="{Binding Topic}" Margin="20,0,0,0" VerticalTextAlignment="Center" TextColor="Black" />
+                                    <Label Text="{Binding Price}" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="End" TextColor="Black"  />
+                                    <Label VerticalTextAlignment="Center" Margin="0,0,20,0" TextColor="Black" Text=",-"/>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
             <ListView x:Name="listViewMainLists" ItemsSource="{Binding Lists}" IsVisible="false" RowHeight="100">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <Grid Margin="0,5,0,0" BackgroundColor="{Binding backgroundColor}" >
+                        <ViewCell >
+                            <Grid Margin="10,10,10,10" BackgroundColor="{Binding backgroundColor}" >
                                 <StackLayout VerticalOptions="Center" Margin="20,0,0,0">
                                     <Label Text="{Binding Topic}"  Margin="0,0,0,-10" FontSize="Medium" />
                                     <StackLayout Orientation="Horizontal" VerticalOptions="Start" Margin="0,-5,0,0"  >
-                                    <Label Text="Items: "/>
-                                    <Label Text="{Binding itemCount}"/>
+                                        <Label Text="Items: "/>
+                                        <Label Text="{Binding itemCount}"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal" VerticalOptions="Start" Margin="0,-10,0,0">
-                                    <Label Text="Price: "/>
-                                    <Label Text="{Binding Price} "/>
-                                    <Label Text=",-"/>
+                                        <Label Text="Price: "/>
+                                        <Label Text="{Binding Price} "/>
+                                        <Label Text=",-"/>
                                     </StackLayout>
+
                                 </StackLayout>
                             </Grid>
                         </ViewCell>

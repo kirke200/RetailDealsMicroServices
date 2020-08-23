@@ -16,13 +16,18 @@ namespace App1.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BrandsView : ContentPage
     {
-        BrandsViewModel bvm = new BrandsViewModel();
+        BrandsViewModel bvm;
 
-        public BrandsView()
+
+        public BrandsView(BrandsViewModel _bvm)
         {
             InitializeComponent();
 
-            BindingContext = bvm;
+            BindingContext = _bvm;
+
+            bvm = _bvm;
+
+
         }
 
       

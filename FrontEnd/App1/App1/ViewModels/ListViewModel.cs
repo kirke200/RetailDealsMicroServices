@@ -1,27 +1,43 @@
 ﻿using App1.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace App1.ViewModels
 {
-    class ListViewModel
+    public class ListViewModel
     {
-        public List<MyList> Lists { get; set;}
+        public ObservableCollection<MyList> Lists { get; private set;}
 
-        string[] backgroundColors = {"#77F4A9", "#99F7BF", "#BBF9D4", "#DDFCEA" }; 
+        int i;
+
+        string[] backgroundColors = { "#cbd5e0", "#e2e8f0" }; 
 
         public ListViewModel()
         {
             Lists = new MyList().GetLists();
 
-            for (int i = 0; i < Lists.Count; i++)
+
+            for (i=0; i < Lists.Count; i++)
             {
                 MyList l = Lists[i];
                 l.CalcItemCount();
-                l.backgroundColor = backgroundColors[i %4];
+                l.backgroundColor = backgroundColors[i % backgroundColors.Length];
 
             }
+        }
+
+
+
+
+        public void AddNewList(MyList ml)
+        {
+            ml.backgroundColor = backgroundColors[i % backgroundColors.Length];
+            Lists.Add(ml);
+
+            i++;
+
         }
     }
 }
