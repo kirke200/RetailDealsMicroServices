@@ -160,4 +160,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\LogoHeader.PNG" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\MenuWhite.png" />
+  </ItemGroup>
 </Project>

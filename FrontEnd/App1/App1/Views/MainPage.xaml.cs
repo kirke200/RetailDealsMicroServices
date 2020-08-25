@@ -249,50 +249,24 @@ namespace App1.View
             b.TranslateTo(x, y, (uint)speed, Easing.CubicOut);
         }
 
-        double navWidth = 0.2;
         void AnimateNavBarOut()
-        {          
+        {
 
-            Device.StartTimer(TimeSpan.FromMilliseconds(5), () =>
-            {
-                navWidth -= 0.03;
-                if (navWidth <= 0)
-                    navWidth = 0;
-                navbarColumnDef.Width = new GridLength(navWidth, GridUnitType.Star);
-                if (navWidth == 0)
-                {
-                    return false;
-                }
-                return true;
-                
-            });
-          
+
+            NavigationBar.TranslateTo(100, 0, 600, Easing.Linear);         
 
         }
 
         void AnimateNavBarIn()
         {
-            MainGrid.ColumnDefinitions[1].Width = new GridLength(navWidth, GridUnitType.Star);
 
-            Device.StartTimer(TimeSpan.FromMilliseconds(10), () =>
+            NavigationBar.TranslateTo(0, 0, 600, Easing.CubicIn);
+
+            Device.StartTimer(TimeSpan.FromMilliseconds(600), () =>
             {
-                navWidth += 0.03;
-                if (navWidth >= 0.2)
-                    navWidth = 0.2;
-
-                MainGrid.ColumnDefinitions[1].Width = new GridLength(navWidth, GridUnitType.Star);
-                if (navWidth == 0.2)
-                {
-                    ScaleButtonsUpAnimation();
-                    return false;
-
-                }
-
-                return true;
-
-            });
-
-
+                ScaleButtonsUpAnimation();
+                return false;
+            }); 
         }
     }
 }
