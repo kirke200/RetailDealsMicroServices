@@ -4,31 +4,32 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="App1.Views.DishView">
-    
-        <NavigationPage.TitleView>
-            <Grid>
-                <Label  x:Name="HeaderTitle" Text="" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="White" FontAttributes="Bold"/>
-            </Grid>
-        </NavigationPage.TitleView>
-    
+             x:Class="App1.Views.CalcRoutePage">
     <ContentPage.Content>
-
-
         <StackLayout>
-            <Image Grid.Column="0" Grid.Row="0"  Aspect="AspectFill"  HeightRequest="200" Source="{Binding ImageUrl}"/>
+            <Label x:Name="NameOfListLabel" HorizontalOptions="Center" VerticalOptions="Center" FontSize="26"/>
+            <Entry x:Name="distance" Placeholder="Max distance to walk" Keyboard="Numeric" />
+
+            <StackLayout>
+                <Entry Placeholder="Select brands" IsEnabled="False"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="BrandsTapped" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+
             <Label Text="Ingredients" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" VerticalTextAlignment ="Center"/>
             <ListView x:Name="IngredientsList" IsEnabled="False">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Label Text="{Binding .}" Margin="20,0,0,0" HorizontalOptions="Start" VerticalOptions="Center"/>
+                            <Label Text="{Binding .}" Margin="20,0,0,0" HorizontalOptions="Start" VerticalOptions="Center" TextColor="Black"/>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ImageButton WidthRequest="60" Source="AddList.png" HeightRequest="60" CornerRadius="30" Margin="0, 0, 20, 20" VerticalOptions="Start" BorderColor="Black" BorderWidth="1" HorizontalOptions="End" BackgroundColor="White" Clicked="Button_Clicked"></ImageButton>
 
+
+            <Button Text="Calculate cheapest route" WidthRequest="500" VerticalOptions="Center" Clicked="ImageButton_Done_Clicked" HorizontalOptions="CenterAndExpand" />
 
         </StackLayout>
     </ContentPage.Content>

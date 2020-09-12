@@ -99,12 +99,13 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <ListView x:Name="listViewMainLists" ItemsSource="{Binding Lists}" IsVisible="false" RowHeight="100">
+            <ListView x:Name="listViewMainLists" ItemsSource="{Binding Lists}" IsVisible="false" RowHeight="100" ItemTapped="listViewMainLists_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell >
-                            <Grid Margin="10,10,10,10" BackgroundColor="{Binding backgroundColor}" >
-                                <StackLayout VerticalOptions="Center" Margin="20,0,0,0">
+                            <Grid Margin="10,5,10,5" BackgroundColor="White" >
+                                <Frame CornerRadius="15" Padding="-20,-20,-20,-20" BackgroundColor="{Binding backgroundColor}" >
+                                    <StackLayout VerticalOptions="Center" Margin="30,0,0,0">
                                     <Label Text="{Binding Topic}"  Margin="0,0,0,-10" FontSize="Medium" />
                                     <StackLayout Orientation="Horizontal" VerticalOptions="Start" Margin="0,-5,0,0"  >
                                         <Label Text="Items: "/>
@@ -115,8 +116,8 @@
                                         <Label Text="{Binding Price} "/>
                                         <Label Text=",-"/>
                                     </StackLayout>
-
                                 </StackLayout>
+                                </Frame>
                             </Grid>
                         </ViewCell>
 
