@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RetailOffers.MessagingUtilities.Attributes;
 using System.Threading.Tasks;
 using System.Threading;
+using Microsoft.Extensions.Configuration;
 
 namespace RetailOffers.MessagingUtilities.RabbitMq
 {
@@ -15,20 +16,22 @@ namespace RetailOffers.MessagingUtilities.RabbitMq
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IMessagingLogger _logger;
+        private readonly IConfiguration _configuration;
         private ConnectionFactory _factory;
         private IConnection _connection;
         private IModel _channel;
-        public RabbitMqListener(IServiceProvider serviceProvider, IMessagingLogger logger)
+        public RabbitMqListener(IServiceProvider serviceProvider, IMessagingLogger logger, IConfiguration configuration)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
+            _configuration = configuration;
         }
 
         public void SubscribeEvent()
         {
             var eventReceiver = _serviceProvider.GetService<IEventReceiver<TEvent>>();
 
-            _factory = new ConnectionFactory() { HostName = "localhost" }; //TODO: Change hostname to not be hardcoded. For some reason this has to be "localhost" if you run it manually but "rabbitmq" when running with docker
+            _factory = new ConnectionFactory() { HostName = _configuration.GetValue<string>("RabbitMq_UrlName") }; //TODO: Change hostname to not be hardcoded. For some reason this has to be "localhost" if you run it manually but "rabbitmq" when running with docker
             _connection = _factory.CreateConnection();
             _channel = _connection.CreateModel();
 

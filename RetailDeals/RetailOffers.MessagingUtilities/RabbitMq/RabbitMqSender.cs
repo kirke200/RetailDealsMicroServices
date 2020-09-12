@@ -5,21 +5,24 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using RetailOffers.MessagingUtilities.Attributes;
+using Microsoft.Extensions.Configuration;
 
 namespace RetailOffers.MessagingUtilities.RabbitMq
 {
     public class RabbitMqSender : IEventSender
     {
         private IMessagingLogger _logger;
+        private readonly IConfiguration _configuration;
 
-        public RabbitMqSender(IMessagingLogger logger)
+        public RabbitMqSender(IMessagingLogger logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
         }
 
         public void PublishEvent<TEvent>(TEvent eventToPublish) where TEvent : IEvent
         {
-            var factory = new ConnectionFactory() { HostName = "rabbitmq" }; //TODO: Change hostname to not be hardcoded
+            var factory = new ConnectionFactory() { HostName = _configuration.GetValue<string>("RabbitMq_UrlName") }; //TODO: Change hostname to not be hardcoded
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
