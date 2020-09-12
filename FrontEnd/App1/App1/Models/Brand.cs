@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace App1.Models
 {
-    class Brand
+    public class Brand
     {
         public string ImageUrl { get; set; }
         public string Name { get; set; }
