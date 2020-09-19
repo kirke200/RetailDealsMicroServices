@@ -20,8 +20,7 @@ namespace APIGateway
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>()
-                    .UseUrls("https://0.0.0.0:5000");
+                    webBuilder.UseStartup<Startup>();
                 });
     }
 }
