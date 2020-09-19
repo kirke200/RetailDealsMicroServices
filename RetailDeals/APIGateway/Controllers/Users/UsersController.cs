@@ -13,6 +13,12 @@ namespace APIGateway.Controllers.Users
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
+        private readonly IEventSender _eventSender;
+
+        public UsersController(IEventSender eventSender)
+        {
+            _eventSender = eventSender;
+        }
         [HttpGet("{id}")]
         public string Get(int id)
         {
@@ -29,13 +35,11 @@ namespace APIGateway.Controllers.Users
         [HttpPost("sendEvent")]
         public void SendEvent()
         {
-            var messageLogger = new MessagingLogger();
-            var eventSender = new RabbitMqSender(messageLogger);
             var eventToSend = new TestEvent
             {
                 TestString = "Sending event to RetailItemUpdater"
             };
-            eventSender.PublishEvent(eventToSend);
+            _eventSender.PublishEvent(eventToSend);
         }
 
     }
