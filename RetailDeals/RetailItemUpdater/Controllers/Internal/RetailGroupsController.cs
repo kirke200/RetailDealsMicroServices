@@ -24,6 +24,7 @@ namespace RetailItemUpdater.Controllers.Internal
         [HttpGet("{id}")]
         public async Task<ActionResult<RetailGroupDto>> Get([FromRoute]string id)
         {
+            Console.WriteLine("Received request");
             var retailGroupDto = await _getRetailGroupHandler.HandleAsync(new GetRetailGroup()
             {
                 Id = id
@@ -37,6 +38,7 @@ namespace RetailItemUpdater.Controllers.Internal
         [HttpGet]
         public async Task<ActionResult<RetailGroupDto>> Get([FromQuery] GetRetailGroup query)
         {
+            Console.WriteLine("Received request");
             var retailGroupDto = await _getRetailGroupHandler.HandleAsync(query);
 
             if (retailGroupDto == null) return NotFound();

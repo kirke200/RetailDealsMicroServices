@@ -28,6 +28,7 @@ namespace APIGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.InjectServices();
             services.AddRestEaseClients(Configuration.GetSection(RestEaseSettings.RestEase).Get<RestEaseSettings>());
         }
 
@@ -39,7 +40,7 @@ namespace APIGateway
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

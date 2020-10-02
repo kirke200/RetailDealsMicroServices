@@ -20,6 +20,7 @@ namespace RetailOffers.MessagingUtilities.RabbitMq
         private ConnectionFactory _factory;
         private IConnection _connection;
         private IModel _channel;
+        private static int numberOfTimesToRetryConnection = 5;
         public RabbitMqListener(IServiceProvider serviceProvider, IMessagingLogger logger, IConfiguration configuration)
         {
             _serviceProvider = serviceProvider;
@@ -30,31 +31,43 @@ namespace RetailOffers.MessagingUtilities.RabbitMq
         public void SubscribeEvent()
         {
             var eventReceiver = _serviceProvider.GetService<IEventReceiver<TEvent>>();
-
-            _factory = new ConnectionFactory() { HostName = _configuration.GetValue<string>("RabbitMq_UrlName") }; //TODO: Change hostname to not be hardcoded. For some reason this has to be "localhost" if you run it manually but "rabbitmq" when running with docker
-            _connection = _factory.CreateConnection();
-            _channel = _connection.CreateModel();
-
-            var queueName = GetQueueName();
-            _channel.QueueDeclare(queue: queueName,
-                durable: false,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null);
-
-            var consumer = new EventingBasicConsumer(_channel);
-            consumer.Received += async (model, ea) =>
+            var timesTried = 0;
+            try
             {
-                var message = System.Text.Encoding.UTF8.GetString(ea.Body.ToArray());
-                var messageAsEvent = JsonConvert.DeserializeObject<TEvent>(message);
-                await TryHandleAsync(messageAsEvent, () => eventReceiver.ReceiveEvent(messageAsEvent));
-                    
-            };
-            _channel.BasicConsume(queue: queueName,
-                                    autoAck: true,
-                                    consumer: consumer);
+                _factory = new ConnectionFactory() { HostName = _configuration.GetValue<string>("RabbitMq_UrlName") }; //TODO: Change hostname to not be hardcoded. For some reason this has to be "localhost" if you run it manually but "rabbitmq" when running with docker
+                _connection = _factory.CreateConnection();
+                _channel = _connection.CreateModel();
 
-            Console.WriteLine("Listening on queue " + queueName);
+                var queueName = GetQueueName();
+                _channel.QueueDeclare(queue: queueName,
+                    durable: false,
+                    exclusive: false,
+                    autoDelete: false,
+                    arguments: null);
+
+                var consumer = new EventingBasicConsumer(_channel);
+                consumer.Received += async (model, ea) =>
+                {
+                    var message = System.Text.Encoding.UTF8.GetString(ea.Body.ToArray());
+                    var messageAsEvent = JsonConvert.DeserializeObject<TEvent>(message);
+                    await TryHandleAsync(messageAsEvent, () => eventReceiver.ReceiveEvent(messageAsEvent));
+
+                };
+                _channel.BasicConsume(queue: queueName,
+                                        autoAck: true,
+                                        consumer: consumer);
+
+                Console.WriteLine("Listening on queue " + queueName);
+
+            } catch (RabbitMQ.Client.Exceptions.BrokerUnreachableException e)
+            {
+                if (timesTried >= numberOfTimesToRetryConnection) throw e;
+                //Retry after 5 seconds. This is because rabbitmq can be slow on startup.
+                timesTried++;
+                Thread.Sleep(5000);
+                SubscribeEvent();
+
+            }
 
         }
 

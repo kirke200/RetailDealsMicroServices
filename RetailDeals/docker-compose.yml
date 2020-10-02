@@ -19,7 +19,7 @@ services:
         image: apigateway-image
         container_name: apigateway-container
         ports:
-          - "8080:80"
+          - 5000:5000
   
     dataminer-service:
         image: dataminer-image
@@ -44,4 +44,6 @@ services:
     retailitemupdater-service:
         image: retailitemupdater-image
         container_name: retailitemupdater-container
+        ports:
+         - 5001:5001
 

@@ -13,11 +13,11 @@ namespace APIGateway.Services
     {
 
         [AllowAnyStatusCode]
-        [Get("retailGroups/{id}")]
+        [Get("api/retailGroups/{id}")]
         public Task<RetailGroup> Get([Path] string id);
 
         [AllowAnyStatusCode]
-        [Get("retailGroups")]
+        [Get("api/retailGroups")]
         public Task<RetailGroup> Find([Query] GetRetailGroup query);
     }
 }
