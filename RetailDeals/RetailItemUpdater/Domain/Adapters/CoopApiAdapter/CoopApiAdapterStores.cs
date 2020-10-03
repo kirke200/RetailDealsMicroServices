@@ -31,6 +31,7 @@ namespace RetailItemUpdater.Domain.Adapters.CoopApiAdapter
 
             if (response.IsSuccessStatusCode)
             {
+                Console.WriteLine("Retrived stores succesfully");
                 return await response.Content.ReadAsAsync<RetailGroupsDTO>(new[] { new JsonMediaTypeFormatter() });
             }
 

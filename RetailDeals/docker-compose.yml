@@ -14,7 +14,19 @@ services:
         ports:
             - 5672:5672
             - 15672:15672
-
+    mongodb:
+        image: mongo:4.2.8
+        container_name: mongodb
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: admin
+            MONGO_INITDB_DATABASE: root-db
+        ports:
+            - 27018:27017
+        volumes:
+            - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+        
     apigateway-service:
         image: apigateway-image
         container_name: apigateway-container

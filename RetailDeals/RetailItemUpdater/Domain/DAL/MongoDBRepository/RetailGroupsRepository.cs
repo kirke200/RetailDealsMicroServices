@@ -37,6 +37,7 @@ namespace RetailItemUpdater.Domain.DAL.MongoDBRepository
         {
             var filter = Builders<RetailGroup>.Filter.Where(x => x.Name == name);
             var retailGroup = await _retailGroups.FindAsync(filter);
+
             return retailGroup.ToList().FirstOrDefault();
         }
 

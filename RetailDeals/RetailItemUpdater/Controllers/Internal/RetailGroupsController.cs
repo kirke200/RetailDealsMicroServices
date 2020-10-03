@@ -30,7 +30,11 @@ namespace RetailItemUpdater.Controllers.Internal
                 Id = id
             });
 
-            if (retailGroupDto == null) return NotFound();
+            if (retailGroupDto == null)
+            {
+                Console.WriteLine("Couldn't find retail group");
+                return NotFound();
+            }
 
             return retailGroupDto;
         }

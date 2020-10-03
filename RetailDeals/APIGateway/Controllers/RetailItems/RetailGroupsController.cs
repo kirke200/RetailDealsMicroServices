@@ -35,9 +35,9 @@ namespace APIGateway.Controllers.RetailItems
         }
 
         [HttpGet]
-        public async Task<ActionResult<RetailGroup>> Get([FromQuery] GetRetailGroup query)
+        public async Task<ActionResult<RetailGroup>> Get([FromQuery] GetRetailGroup  query)
         {
-            var retailGroup = await _retailGroupService.Find(query);
+            var retailGroup = await _retailGroupService.Find(query.Id, query.Name);
 
             return retailGroup;
         }
