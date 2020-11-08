@@ -1,5 +1,6 @@
 ﻿//using App1.Views;
 using App1.Models;
+using App1.Services;
 using App1.ViewModels;
 using App1.Views;
 using System;
@@ -24,6 +25,8 @@ namespace App1.View
         ListViewModel lvm = new ListViewModel();
         BrandsViewModel bvm = new BrandsViewModel();
 
+        ApiServices apiServices;
+
 
         ICommand GoToSpecialItemListCommand;
         ICommand GoToNewListPageCommand;
@@ -38,8 +41,10 @@ namespace App1.View
          
             currentPageIndicator = labelHouse;
 
+            apiServices = new ApiServices();
+
             GoToSpecialItemListCommand = new Command(() => Navigation.PushAsync(new SpecialOffersPage()));
-            GoToNewListPageCommand = new Command(() => Navigation.PushAsync(new NewListPage(bvm, lvm)));
+            GoToNewListPageCommand = new Command(() => Navigation.PushAsync(new NewListPage(lvm)));
 
             BindingContext = dvm;
 
@@ -185,9 +190,22 @@ namespace App1.View
                 return false;
             });
         }
- /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                                                        ANIMATION STUFF
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+        private async void listViewMainLists_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+
+            MyList ml = e.Item as MyList;
+
+            await Navigation.PushAsync(new CalcRoutePage(ml, bvm));
+
+
+            if (sender is ListView lv) lv.SelectedItem = null;
+
+            await apiServices.PostList(ml);
+
+        }
+        /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                                               ANIMATION STUFF
+         ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
         void ScaleButtonsDownAnimation()
         {
             house.ScaleTo(0, 400, easing: Easing.CubicOut);
@@ -268,5 +286,6 @@ namespace App1.View
                 return false;
             }); 
         }
+
     }
 }
