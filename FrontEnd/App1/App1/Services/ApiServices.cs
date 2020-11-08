@@ -2,7 +2,9 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
+using System.Net.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,8 +16,18 @@ namespace App1.Services
 
         public ApiServices()
         {
-            client = new HttpClient();
-
+            client = new HttpClient
+        (
+            new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
+                {
+                    //bypass
+                    return true;
+                },
+            }
+            , false
+        );
         }
 
 
@@ -23,7 +35,7 @@ namespace App1.Services
         public async Task<HttpResponseMessage> PostList(MyList list)
         {
 
-            client.BaseAddress = new Uri("https://192.168.0.241:5000/api/RetailGroups?name=Kvickly");
+            client.BaseAddress = new Uri("http://192.168.0.241:5000/api/RetailGroups?name=Kvickly");
 
             string json = JsonConvert.SerializeObject(list);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -31,13 +43,15 @@ namespace App1.Services
 
             HttpResponseMessage response = null;
           
-            response = await client.PostAsync(client.BaseAddress, content);           
+            response = await client.GetAsync(client.BaseAddress);           
 
             if (response.IsSuccessStatusCode)
             {
                 
             }
 
+            //var jsonString = response.Content.ReadAsStringAsync();
+            //JsonConvert.DeserializeObject<>
             return response;
         }
 
