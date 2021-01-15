@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 namespace App1.Views
 {
@@ -29,6 +29,8 @@ namespace App1.Views
             IngredientsList.ItemsSource = ml.items;
 
             NameOfListLabel.Text = ml.Topic;
+
+            //Launcher.OpenAsync("geo:0,0?q=394+Pacific+Ave+San+Francisco+CA");
         }
 
         private void BrandsTapped(object sender, EventArgs e)
@@ -38,10 +40,25 @@ namespace App1.Views
         }
 
 
-        private void ImageButton_Done_Clicked(object sender, EventArgs e)
+        private async void ImageButton_Done_Clicked(object sender, EventArgs e)
         {
             //TODO Implement call to backEnd (in CalcRouteViewModel)
-            Navigation.PopAsync();
+            var permissions = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+           // var location = await Geolocation.GetLastKnownLocationAsync();
+
+            if (permissions != PermissionStatus.Granted)
+            {
+                permissions = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+            }
+
+            //await Map.OpenAsync(location);
+
+            await Map.OpenAsync(55.681998, 12.5763, new MapLaunchOptions
+            {
+                NavigationMode = NavigationMode.Default
+            });
+            //await Navigation.PopAsync();
         }
     }
 }

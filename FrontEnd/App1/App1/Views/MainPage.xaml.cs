@@ -142,8 +142,7 @@ namespace App1.View
 
         private void LogOut_Clicked(object sender, EventArgs e)
         {
-
-
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
         }
 
 
@@ -200,7 +199,7 @@ namespace App1.View
 
             if (sender is ListView lv) lv.SelectedItem = null;
 
-            await apiServices.PostList(ml);
+            //await apiServices.PostList(ml);
             
 
         }

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.Views.LoginPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry x:Name="Username" Placeholder="Username"/>
+            <Entry x:Name="Password" IsPassword="True" Placeholder="Password"/>
+            <Button Text="Login" Clicked="Login_Clicked"/>
+            <Button Text="Delete id" Clicked="Delete_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
