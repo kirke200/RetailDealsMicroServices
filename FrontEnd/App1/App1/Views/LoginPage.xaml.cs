@@ -38,5 +38,10 @@ namespace App1.Views
         {
             Preferences.Remove("user_key");
         }
+
+        private void ForgotPassword_Tapped(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

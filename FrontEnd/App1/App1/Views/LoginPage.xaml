@@ -4,10 +4,17 @@
              x:Class="App1.Views.LoginPage">
     <ContentPage.Content>
         <StackLayout>
-            <Entry x:Name="Username" Placeholder="Username"/>
-            <Entry x:Name="Password" IsPassword="True" Placeholder="Password"/>
-            <Button Text="Login" Clicked="Login_Clicked"/>
-            <Button Text="Delete id" Clicked="Delete_Clicked"/>
+            <Entry x:Name="Username" Placeholder="Username" Margin="40,0,40,0"/>
+            <Entry x:Name="Password" IsPassword="True" Placeholder="Password" Margin="40,0,40,0"/>
+            <Label x:Name="ForgotPassword" HorizontalOptions="End" Text="Forgot password?" TextColor= "Gray" FontSize="10" Margin="40,0,40,20">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped = "ForgotPassword_Tapped"
+                    ></TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>
+                <Button BackgroundColor="#2BED79" TextColor="WhiteSmoke" Text="Login" Clicked="Login_Clicked" Margin="40,0,40,0"/>
+            <Button BackgroundColor="#2BED79" TextColor="WhiteSmoke" Text="Delete id" Clicked="Delete_Clicked" Margin="40,0,40,0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

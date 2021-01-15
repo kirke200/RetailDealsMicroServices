@@ -211,7 +211,8 @@ namespace App1.View
             house.ScaleTo(0, 400, easing: Easing.CubicOut);
             list.ScaleTo(0, 400, easing: Easing.CubicOut);
             bestik.ScaleTo(0, 400, easing: Easing.CubicOut);
-            search.ScaleTo(0, 400, easing: Easing.CubicOut);         
+            search.ScaleTo(0, 400, easing: Easing.CubicOut);
+            logout.ScaleTo(0, 400, easing: Easing.CubicOut);
         }
 
         void ScaleLabelAnimation(Label label, float scale, int speed, Easing easing)
@@ -221,10 +222,11 @@ namespace App1.View
         void ScaleButtonsUpAnimation()
         {
 
-            ScaleImageButton(house, 1, 400, Easing.CubicInOut);
-            ScaleImageButton(list, 1, 650, Easing.CubicInOut);
-            ScaleImageButton(bestik, 1, 900, Easing.CubicInOut);
-            ScaleImageButton(search, 1, 1050, Easing.CubicInOut);          
+            ScaleImageButton(house, 1, 150, Easing.CubicInOut);
+            ScaleImageButton(list, 1, 400, Easing.CubicInOut);
+            ScaleImageButton(bestik, 1, 650, Easing.CubicInOut);
+            ScaleImageButton(search, 1, 900, Easing.CubicInOut);
+            ScaleImageButton(logout, 1, 1050, Easing.CubicInOut);
         }
 
         void ScaleImageButton(ImageButton iButton, float scale, int speed, Easing easingFucntion)

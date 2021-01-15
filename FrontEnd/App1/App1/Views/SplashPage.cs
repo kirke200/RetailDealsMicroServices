@@ -53,7 +53,10 @@ namespace App1.Views
             bool hasKey = Preferences.ContainsKey("user_key");
             if (!hasKey)
             {
-                Application.Current.MainPage = new NavigationPage(new LoginPage());
+                Application.Current.MainPage = new NavigationPage(new LoginPage())
+                {
+                    BarBackgroundColor = Color.FromHex("#2BED79"),
+                };
             }
 
             //}
