@@ -159,22 +159,13 @@ namespace App1.View
 
         private void listViewMainDishes_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-
             Dish dish = e.Item as Dish;          
-
             Navigation.PushAsync(new DishView(dish, lvm));          
-
-            if (sender is ListView lv) lv.SelectedItem = null;
-
         }
 
         private void listViewMainSpecialOffers_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             SpecialOffer so = e.Item as SpecialOffer;
-
-          
-
-            if (sender is ListView lv) lv.SelectedItem = null;
         }
 
 
@@ -195,9 +186,6 @@ namespace App1.View
             MyList ml = e.Item as MyList;
 
             await Navigation.PushAsync(new CalcRoutePage(ml, bvm));
-
-
-            if (sender is ListView lv) lv.SelectedItem = null;
 
             //await apiServices.PostList(ml);
             
@@ -271,10 +259,7 @@ namespace App1.View
 
         void AnimateNavBarOut()
         {
-
-
             NavigationBar.TranslateTo(100, 0, 600, Easing.Linear);         
-
         }
 
         void AnimateNavBarIn()
