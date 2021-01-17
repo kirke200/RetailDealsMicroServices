@@ -12,14 +12,17 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+
 
 
 
             </Grid.ColumnDefinitions>
 
-            <Image x:Name="HeaderImage" Source="LogoHeader.PNG"  BackgroundColor="Black"  Scale="0.8"  Grid.Column="1" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand"/>
-            <Label x:Name="HeaderTitle" Text="Home" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White" IsVisible="false" FontAttributes="Bold"/>
-            <ImageButton x:Name="ImageButtonHeader" Grid.Column="2" VerticalOptions="Start" Scale="0"  HorizontalOptions="Center" Source="menu.png" Margin="0,8,0,0" WidthRequest="40" HeightRequest="40" BackgroundColor="#2BED79" Clicked="navButton_Clicked" />
+            <Image x:Name="HeaderImage" Source="LogoHeader.PNG"    Scale="0.8"  Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand"/>
+            <Label x:Name="HeaderTitle" Text="Home" Grid.Column="3"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White" IsVisible="false" FontAttributes="Bold"/>
+            <ImageButton x:Name="ImageButtonHeader" Grid.Column="5" VerticalOptions="Center" Scale="0" Padding="-30,-30,-30,-30"  HorizontalOptions="Center" Source="MenuWhite.png"  WidthRequest="40" HeightRequest="40" BackgroundColor="#2BED79" Clicked="navButton_Clicked" />
 
         </Grid>
     </NavigationPage.TitleView>
@@ -31,40 +34,14 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="0.2*" x:Name="navbarColumnDef"/>
-
+            <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
 
-        <StackLayout x:Name="NavigationBar" Grid.Row="0" Grid.Column="1" BackgroundColor="White">
-            <StackLayout >
-                <ImageButton x:Name="house"  Padding="-20,-20,-20,-20"  WidthRequest="60"  HeightRequest="60" CornerRadius="30"  HorizontalOptions="Center" BackgroundColor="White" Source="Home.png"  Clicked="ImageButton_Clicked_House"/>
-                <Label x:Name="labelHouse"  HeightRequest="5" Margin="5,0,5,0" BackgroundColor="#2BED79"></Label>
-            </StackLayout>
 
-            <StackLayout >
-                <ImageButton x:Name="list"     WidthRequest="60"  Padding="-20,-20,-20,-20"   HeightRequest="60" CornerRadius="30"   HorizontalOptions="Center" BackgroundColor="White" Source="List.png"   Clicked="ImageButton_Clicked_Lists" />
-                <Label x:Name="labelList" WidthRequest="40" HeightRequest="5" Margin="5,0,5,0"  BackgroundColor="#FFFFFF"></Label>
-            </StackLayout>
-            
-            <StackLayout >
-            <ImageButton x:Name="bestik"   WidthRequest="60"  HeightRequest="60" CornerRadius="30" HorizontalOptions="Center" BackgroundColor="White" Source="bestik.png" Clicked="ImageButton_Clicked_Dishes" />
-                <Label x:Name="labelBestik" WidthRequest="40" HeightRequest="5" Margin="5,0,5,0" BackgroundColor="#FFFFFF"></Label>
-            </StackLayout>
 
-            <StackLayout >
-                <ImageButton x:Name="search"   WidthRequest="60"   Padding="-30,-30,-30,-30"  HeightRequest="60" CornerRadius="50"   HorizontalOptions="Center" BackgroundColor="White" Source="Search.png" Clicked="ImageButton_Clicked_SpeacialItems" />
-                <Label x:Name="labelSearch" WidthRequest="10" HeightRequest="5" Margin="5,0,5,0" BackgroundColor="#FFFFFF"></Label>
-            </StackLayout>
-        </StackLayout>
 
-       
-        <Grid Grid.Row="0" Grid.Column="0" BackgroundColor="White" >
-            
-            
-            
-            
-
-            <ListView x:Name="listViewMainSpecialOffers" ItemsSource="{Binding SpecialOffers}" ItemTapped="listViewMainSpecialOffers_ItemTapped" RowHeight="100">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan ="2">
+            <ListView x:Name="listViewMainSpecialOffers" ItemsSource="{Binding SpecialOffers}" ItemTapped="listViewMainSpecialOffers_ItemTapped" RowHeight="100" SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell >
@@ -97,11 +74,11 @@
             </ListView>
             
             
-            <ListView x:Name="listViewMainDishes" ItemsSource="{Binding Dishes}" IsVisible="false" RowHeight="200" ItemTapped="listViewMainDishes_ItemTapped">
+            <ListView x:Name="listViewMainDishes" ItemsSource="{Binding Dishes}" IsVisible="false" RowHeight="200" ItemTapped="listViewMainDishes_ItemTapped" SelectionMode="None">
                 <ListView.ItemTemplate  >
                     <DataTemplate >
                         <ViewCell >
-                            <Grid Margin="0,0,0,2" BackgroundColor="Black">
+                            <Grid Margin="0,0,0,2" >
                                 <Image Grid.Column="0" Aspect="AspectFill" Grid.Row="0" Source="{Binding ImageUrl}"></Image>
 
 
@@ -117,12 +94,13 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <ListView x:Name="listViewMainLists" ItemsSource="{Binding Lists}" IsVisible="false" RowHeight="100">
+            <ListView x:Name="listViewMainLists" ItemsSource="{Binding Lists}" IsVisible="false" RowHeight="100" ItemTapped="listViewMainLists_ItemTapped" SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell >
-                            <Grid Margin="10,10,10,10" BackgroundColor="{Binding backgroundColor}" >
-                                <StackLayout VerticalOptions="Center" Margin="20,0,0,0">
+                            <Grid Margin="10,5,10,5" BackgroundColor="White" >
+                                <Frame CornerRadius="15" Padding="-20,-20,-20,-20" BackgroundColor="{Binding backgroundColor}" >
+                                    <StackLayout VerticalOptions="Center" Margin="30,0,0,0">
                                     <Label Text="{Binding Topic}"  Margin="0,0,0,-10" FontSize="Medium" />
                                     <StackLayout Orientation="Horizontal" VerticalOptions="Start" Margin="0,-5,0,0"  >
                                         <Label Text="Items: "/>
@@ -133,8 +111,8 @@
                                         <Label Text="{Binding Price} "/>
                                         <Label Text=",-"/>
                                     </StackLayout>
-
                                 </StackLayout>
+                                </Frame>
                             </Grid>
                         </ViewCell>
 
@@ -146,6 +124,35 @@
 
 
         </Grid>
+            <StackLayout x:Name="NavigationBar" Grid.Row="0" Grid.Column="1" BackgroundColor="White" >
+            <StackLayout >
+                <ImageButton x:Name="house"  Padding="-20,-20,-20,-20"  WidthRequest="60"  HeightRequest="60" CornerRadius="30"  HorizontalOptions="Center" BackgroundColor="White" Source="Home.png"  Clicked="ImageButton_Clicked_House"/>
+                <Label x:Name="labelHouse"  HeightRequest="5" Margin="5,0,5,0" BackgroundColor="#2BED79"></Label>
+            </StackLayout>
+
+            <StackLayout >
+                <ImageButton x:Name="list"     WidthRequest="60"  Padding="-20,-20,-20,-20"   HeightRequest="60" CornerRadius="30"   HorizontalOptions="Center" BackgroundColor="White" Source="List.png"   Clicked="ImageButton_Clicked_Lists" />
+                <Label x:Name="labelList" WidthRequest="40" HeightRequest="5" Margin="5,0,5,0"  BackgroundColor="#FFFFFF"></Label>
+            </StackLayout>
+
+            <StackLayout >
+                <ImageButton x:Name="bestik"   WidthRequest="60"  HeightRequest="60" CornerRadius="30" HorizontalOptions="Center" BackgroundColor="White" Source="bestik.png" Clicked="ImageButton_Clicked_Dishes" />
+                <Label x:Name="labelBestik" WidthRequest="40" HeightRequest="5" Margin="5,0,5,0" BackgroundColor="#FFFFFF"></Label>
+            </StackLayout>
+
+            <StackLayout >
+                <ImageButton x:Name="search"   WidthRequest="60"   Padding="-30,-30,-30,-30"  HeightRequest="60" CornerRadius="50"   HorizontalOptions="Center" BackgroundColor="White" Source="Search.png" Clicked="ImageButton_Clicked_SpeacialItems" />
+                <Label x:Name="labelSearch" WidthRequest="10" HeightRequest="5" Margin="5,0,5,0" BackgroundColor="#FFFFFF"></Label>
+            </StackLayout>
+                
+            <StackLayout >
+                <ImageButton x:Name="logout"   WidthRequest="60"   Padding="5,5,5,5"  HeightRequest="60" CornerRadius="50"   HorizontalOptions="Center" BackgroundColor="White" Source="logout.png" Clicked="LogOut_Clicked" />
+                <Label x:Name="labelLogout" WidthRequest="10" HeightRequest="5" Margin="5,0,5,0" BackgroundColor="#FFFFFF"></Label>
+            </StackLayout>
+                
+        </StackLayout>
+
+      
 
         <ImageButton x:Name="AddNewItemButton" Source="AddList.png"   WidthRequest="60"  HeightRequest="60" CornerRadius="30" Margin="0, 0, 20, 20" Grid.Row="0" BorderWidth="1" BorderColor="Black"   Grid.Column="0" VerticalOptions="End" HorizontalOptions="End" BackgroundColor="White"></ImageButton>
 

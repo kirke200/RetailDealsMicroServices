@@ -8,16 +8,15 @@ using RestEase;
 
 namespace APIGateway.Services
 {
-    [SerializationMethods(Query = QuerySerializationMethod.Serialized)]
     public interface IRetailGroupService
     {
 
         [AllowAnyStatusCode]
-        [Get("retailGroups/{id}")]
+        [Get("api/retailGroups/{id}")]
         public Task<RetailGroup> Get([Path] string id);
 
         [AllowAnyStatusCode]
-        [Get("retailGroups")]
-        public Task<RetailGroup> Find([Query] GetRetailGroup query);
+        [Get("api/retailGroups")]
+        public Task<RetailGroup> Find([Query] string id, [Query] string name);
     }
 }

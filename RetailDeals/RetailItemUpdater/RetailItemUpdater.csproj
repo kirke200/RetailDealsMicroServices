@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Api\Internal\" />
+    <Folder Include="Domain\DAL\Models\DatabaseSettings\" />
   </ItemGroup>
 
 </Project>

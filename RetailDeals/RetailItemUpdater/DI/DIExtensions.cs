@@ -11,6 +11,7 @@ using RetailItemUpdater.DTO;
 using RetailItemUpdater.Events;
 using RetailItemUpdater.Events.Receivers;
 using RetailItemUpdater.Handlers.RetailGroups;
+using RetailItemUpdater.Handlers.ShoppingList;
 using RetailItemUpdater.Queries;
 using RetailOffers.MessagingUtilities;
 using RetailOffers.MessagingUtilities.RabbitMq;
@@ -41,12 +42,14 @@ namespace RetailItemUpdater
 
             //Repositories
             services.AddSingleton<IRetailGroupsRepository, RetailGroupsRepository>();
+            services.AddSingleton<IShoppingListsRepository, ShoppingListsRepository>();
 
             //Services
             services.AddSingleton<IRetailGroupsUpdater, RetailGroupUpdater>();
 
             //Handlers
             services.AddSingleton<IQueryHandler<GetRetailGroup, RetailGroupDto>, GetRetailGroupHandler>(); //TODO: Gør det her til det der dispatcher halløj
+            services.AddSingleton<IQueryHandler<GetShoppingLists, ShoppingListsDTO>, GetShoppingListsHandler>();
         }
     }
 }

@@ -24,12 +24,17 @@ namespace RetailItemUpdater.Controllers.Internal
         [HttpGet("{id}")]
         public async Task<ActionResult<RetailGroupDto>> Get([FromRoute]string id)
         {
+            Console.WriteLine("Received request");
             var retailGroupDto = await _getRetailGroupHandler.HandleAsync(new GetRetailGroup()
             {
                 Id = id
             });
 
-            if (retailGroupDto == null) return NotFound();
+            if (retailGroupDto == null)
+            {
+                Console.WriteLine("Couldn't find retail group");
+                return NotFound();
+            }
 
             return retailGroupDto;
         }
@@ -37,6 +42,7 @@ namespace RetailItemUpdater.Controllers.Internal
         [HttpGet]
         public async Task<ActionResult<RetailGroupDto>> Get([FromQuery] GetRetailGroup query)
         {
+            Console.WriteLine("Received request");
             var retailGroupDto = await _getRetailGroupHandler.HandleAsync(query);
 
             if (retailGroupDto == null) return NotFound();

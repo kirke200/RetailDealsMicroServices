@@ -8,14 +8,6 @@
 
     <StackLayout>
         <Entry x:Name="EntryNameOfList" Placeholder="Name of list"/>
-        <Grid>
-            <Entry Placeholder="Select Brands" />
-            <BoxView></BoxView>
-            <Grid.GestureRecognizers>
-                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="BrandsTapped" />
-            </Grid.GestureRecognizers>
-        </Grid>
-        <Entry x:Name="distance" Placeholder="Max distance to walk" Keyboard="Numeric" />
 
         <ImageButton Source="Tick.png" Clicked="ImageButton_Done_Clicked" WidthRequest="60"  HeightRequest="60" CornerRadius="30" HorizontalOptions="Center" BackgroundColor="White" VerticalOptions="EndAndExpand" Margin="0,0,0,5" BorderColor="Black" BorderWidth="1"></ImageButton>
     </StackLayout>

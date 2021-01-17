@@ -14,34 +14,28 @@ services:
         ports:
             - 5672:5672
             - 15672:15672
-
+    mongodb:
+        image: mongo:4.2.8
+        container_name: mongodb
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: admin
+            MONGO_INITDB_DATABASE: root-db
+        ports:
+            - 27018:27017
+        volumes:
+            - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+        
     apigateway-service:
         image: apigateway-image
         container_name: apigateway-container
         ports:
-          - "8080:80"
-  
-    dataminer-service:
-        image: dataminer-image
-        container_name: dataminer-container
-
-    identitymanager-service:
-        image: identitymanager-image
-        container_name: identitymanager-container
-
-    locationmanager-service:
-        image: locationmanager-image
-        container_name: locationmanager-container
-
-    offermanager-service:
-        image: offermanager-image
-        container_name: offermanager-container
-
-    recipemanager-service:
-        image: recipemanager-image
-        container_name: recipemanager-container
+          - 5000:5000
 
     retailitemupdater-service:
         image: retailitemupdater-image
         container_name: retailitemupdater-container
+        ports:
+         - 5001:5001
 

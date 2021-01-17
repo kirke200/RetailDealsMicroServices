@@ -1,5 +1,6 @@
 ﻿//using App1.Views;
 using App1.Models;
+using App1.Services;
 using App1.ViewModels;
 using App1.Views;
 using System;
@@ -25,6 +26,10 @@ namespace App1.View
         BrandsViewModel bvm = new BrandsViewModel();
 
 
+
+        ApiServices apiServices;
+
+
         ICommand GoToSpecialItemListCommand;
         ICommand GoToNewListPageCommand;
 
@@ -38,8 +43,10 @@ namespace App1.View
          
             currentPageIndicator = labelHouse;
 
+            apiServices = new ApiServices();
+
             GoToSpecialItemListCommand = new Command(() => Navigation.PushAsync(new SpecialOffersPage()));
-            GoToNewListPageCommand = new Command(() => Navigation.PushAsync(new NewListPage(bvm, lvm)));
+            GoToNewListPageCommand = new Command(() => Navigation.PushAsync(new NewListPage(lvm)));
 
             BindingContext = dvm;
 
@@ -65,9 +72,11 @@ namespace App1.View
 
         }
 
-        private void ImageButton_Clicked_Lists(object sender, EventArgs e)
+        private async void ImageButton_Clicked_Lists(object sender, EventArgs e)
         {
             HeaderTitle.Text = "My Lists";
+
+
             NavBarMinimize();
 
             ChangeListView(listViewMainLists);
@@ -77,6 +86,8 @@ namespace App1.View
             NewPageSelected(labelList);
 
             AddNewItemButton.Command = GoToNewListPageCommand;
+            
+            await lvm.LoadMyLists(1337);
 
 
 
@@ -137,8 +148,7 @@ namespace App1.View
 
         private void LogOut_Clicked(object sender, EventArgs e)
         {
-
-
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
         }
 
 
@@ -155,22 +165,13 @@ namespace App1.View
 
         private void listViewMainDishes_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-
             Dish dish = e.Item as Dish;          
-
             Navigation.PushAsync(new DishView(dish, lvm));          
-
-            if (sender is ListView lv) lv.SelectedItem = null;
-
         }
 
         private void listViewMainSpecialOffers_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             SpecialOffer so = e.Item as SpecialOffer;
-
-          
-
-            if (sender is ListView lv) lv.SelectedItem = null;
         }
 
 
@@ -185,15 +186,27 @@ namespace App1.View
                 return false;
             });
         }
- /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                                                        ANIMATION STUFF
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+        private async void listViewMainLists_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+
+            MyList ml = e.Item as MyList;
+
+            await Navigation.PushAsync(new CalcRoutePage(ml, bvm));
+
+           // await apiServices.PostList(ml);
+            
+
+        }
+        /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                                               ANIMATION STUFF
+         ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
         void ScaleButtonsDownAnimation()
         {
             house.ScaleTo(0, 400, easing: Easing.CubicOut);
             list.ScaleTo(0, 400, easing: Easing.CubicOut);
             bestik.ScaleTo(0, 400, easing: Easing.CubicOut);
-            search.ScaleTo(0, 400, easing: Easing.CubicOut);         
+            search.ScaleTo(0, 400, easing: Easing.CubicOut);
+            logout.ScaleTo(0, 400, easing: Easing.CubicOut);
         }
 
         void ScaleLabelAnimation(Label label, float scale, int speed, Easing easing)
@@ -203,10 +216,11 @@ namespace App1.View
         void ScaleButtonsUpAnimation()
         {
 
-            ScaleImageButton(house, 1, 400, Easing.CubicInOut);
-            ScaleImageButton(list, 1, 650, Easing.CubicInOut);
-            ScaleImageButton(bestik, 1, 900, Easing.CubicInOut);
-            ScaleImageButton(search, 1, 1050, Easing.CubicInOut);          
+            ScaleImageButton(house, 1, 150, Easing.CubicInOut);
+            ScaleImageButton(list, 1, 400, Easing.CubicInOut);
+            ScaleImageButton(bestik, 1, 650, Easing.CubicInOut);
+            ScaleImageButton(search, 1, 900, Easing.CubicInOut);
+            ScaleImageButton(logout, 1, 1050, Easing.CubicInOut);
         }
 
         void ScaleImageButton(ImageButton iButton, float scale, int speed, Easing easingFucntion)
@@ -249,50 +263,22 @@ namespace App1.View
             b.TranslateTo(x, y, (uint)speed, Easing.CubicOut);
         }
 
-        double navWidth = 0.2;
         void AnimateNavBarOut()
-        {          
-
-            Device.StartTimer(TimeSpan.FromMilliseconds(5), () =>
-            {
-                navWidth -= 0.03;
-                if (navWidth <= 0)
-                    navWidth = 0;
-                navbarColumnDef.Width = new GridLength(navWidth, GridUnitType.Star);
-                if (navWidth == 0)
-                {
-                    return false;
-                }
-                return true;
-                
-            });
-          
-
+        {
+            NavigationBar.TranslateTo(100, 0, 600, Easing.Linear);         
         }
 
         void AnimateNavBarIn()
         {
-            MainGrid.ColumnDefinitions[1].Width = new GridLength(navWidth, GridUnitType.Star);
 
-            Device.StartTimer(TimeSpan.FromMilliseconds(10), () =>
+            NavigationBar.TranslateTo(0, 0, 600, Easing.CubicIn);
+
+            Device.StartTimer(TimeSpan.FromMilliseconds(600), () =>
             {
-                navWidth += 0.03;
-                if (navWidth >= 0.2)
-                    navWidth = 0.2;
-
-                MainGrid.ColumnDefinitions[1].Width = new GridLength(navWidth, GridUnitType.Star);
-                if (navWidth == 0.2)
-                {
-                    ScaleButtonsUpAnimation();
-                    return false;
-
-                }
-
-                return true;
-
-            });
-
-
+                ScaleButtonsUpAnimation();
+                return false;
+            }); 
         }
+
     }
 }

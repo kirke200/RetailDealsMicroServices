@@ -10,11 +10,13 @@ namespace RetailItemUpdater.Domain.DAL.Models
         public string RetailGroupsCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
+        public string ShoppingListCollectionName { get; set; }
     }
 
     public interface IRetailDealsDatabaseSettings
     {
         string RetailGroupsCollectionName { get; set; }
+        string ShoppingListCollectionName { get; set; }
         string ConnectionString { get; set; }
         string DatabaseName { get; set; }
     }

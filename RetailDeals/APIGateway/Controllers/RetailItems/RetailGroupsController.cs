@@ -3,6 +3,7 @@ using APIGateway.Models;
 using APIGateway.Queries;
 using APIGateway.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using RetailOffers.MessagingUtilities;
 using RetailOffers.MessagingUtilities.RabbitMq;
 using System;
@@ -17,12 +18,11 @@ namespace APIGateway.Controllers.RetailItems
     public class RetailGroupsController : ControllerBase
     {
         private readonly IRetailGroupService _retailGroupService;
-        private RabbitMqSender _eventSender;
+        private IEventSender _eventSender;
 
-        public RetailGroupsController(IRetailGroupService retailGroupService)
+        public RetailGroupsController(IRetailGroupService retailGroupService, IEventSender eventSender)
         {
-            var _messageLogger = new MessagingLogger();
-            _eventSender = new RabbitMqSender(_messageLogger);
+            _eventSender = eventSender;
             _retailGroupService = retailGroupService;
         }
 
@@ -35,9 +35,9 @@ namespace APIGateway.Controllers.RetailItems
         }
 
         [HttpGet]
-        public async Task<ActionResult<RetailGroup>> Get([FromQuery] GetRetailGroup query)
+        public async Task<ActionResult<RetailGroup>> Get([FromQuery] GetRetailGroup  query)
         {
-            var retailGroup = await _retailGroupService.Find(query);
+            var retailGroup = await _retailGroupService.Find(query.Id, query.Name);
 
             return retailGroup;
         }
