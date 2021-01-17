@@ -23,6 +23,7 @@ namespace App1.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            //global::Xamarin.FormsGoogleMaps.Init(""); //https://nerd-corner.com/how-to-integrate-google-maps-in-an-app-with-xamarin/
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

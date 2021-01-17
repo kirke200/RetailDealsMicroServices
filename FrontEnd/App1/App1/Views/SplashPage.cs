@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace App1.Views
 {
@@ -49,11 +50,24 @@ namespace App1.Views
                 await splashImage.ScaleTo(0.9, 1500, Easing.Linear);
                 await splashImage.ScaleTo(1.1, 1500, Easing.Linear);
 
-            //}
-            Application.Current.MainPage = new NavigationPage(new MainPage())
+            bool hasKey = Preferences.ContainsKey("user_key");
+            if (!hasKey)
             {
-                BarBackgroundColor = Color.FromHex("#2BED79"),
-            };
+                Application.Current.MainPage = new NavigationPage(new LoginPage())
+                {
+                    BarBackgroundColor = Color.FromHex("#2BED79"),
+                };
+            }
+
+            //}
+            else
+            {
+                Application.Current.MainPage = new NavigationPage(new MainPage())
+                {
+                    BarBackgroundColor = Color.FromHex("#2BED79"),
+                };
+
+            }
         }
     }
 }

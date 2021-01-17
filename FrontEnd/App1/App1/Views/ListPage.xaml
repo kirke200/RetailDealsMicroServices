@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="App1.Views.CalcRoutePage">
+
+        <NavigationPage.TitleView>
+
+        
+        <Label x:Name="HeaderTitle" Text="" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="White" IsVisible="True" FontAttributes="Bold"/>
+    </NavigationPage.TitleView>
+
+
+    <Grid x:Name="MainGrid" RowSpacing="0" ColumnSpacing="0" Margin="0,0,0,0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="1*"/>
+
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan ="2" >
+            <StackLayout>
+                <SearchBar x:Name="searchBar" Placeholder="Search product" TextChanged="SearchBar_TextChanged" SearchCommand="{Binding PerformSearch}"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+                <ListView IsVisible="false" SelectionMode="None" x:Name="searchResults" ItemTapped="searchResults_ItemTapped">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding .}" Margin="20,0,0,0" HorizontalOptions="Start" VerticalOptions="Center" TextColor="Black"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                    <Label Text="Products" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" VerticalTextAlignment ="Center"/>
+                <ListView x:Name="Products" IsEnabled="False">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding .}" Margin="20,0,0,0" HorizontalOptions="Start" VerticalOptions="Center" TextColor="Black"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Text="Calculate cheapest route" WidthRequest="500" VerticalOptions="End" Clicked="ImageButton_Done_Clicked" HorizontalOptions="CenterAndExpand" />
+            </StackLayout>
+        </Grid>
+
+        <Grid x:Name="APISearchGrid" Grid.Row="0" Grid.Column="0" Grid.RowSpan ="2" IsVisible="false">
+            <StackLayout x:Name="APISearch" BackgroundColor="black">
+                <Button Clicked="APISearchButton_Clicked"></Button>
+                
+            </StackLayout>
+
+        </Grid>
+       
+    </Grid>
+</ContentPage>
