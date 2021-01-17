@@ -35,18 +35,13 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="0.2*"/>
-
         </Grid.ColumnDefinitions>
 
 
 
 
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan ="2"   >
-            
-            
-            
-     
-            <ListView x:Name="listViewMainSpecialOffers" ItemsSource="{Binding SpecialOffers}" ItemTapped="listViewMainSpecialOffers_ItemTapped" RowHeight="100">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan ="2">
+            <ListView x:Name="listViewMainSpecialOffers" ItemsSource="{Binding SpecialOffers}" ItemTapped="listViewMainSpecialOffers_ItemTapped" RowHeight="100" SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell >
@@ -79,7 +74,7 @@
             </ListView>
             
             
-            <ListView x:Name="listViewMainDishes" ItemsSource="{Binding Dishes}" IsVisible="false" RowHeight="200" ItemTapped="listViewMainDishes_ItemTapped">
+            <ListView x:Name="listViewMainDishes" ItemsSource="{Binding Dishes}" IsVisible="false" RowHeight="200" ItemTapped="listViewMainDishes_ItemTapped" SelectionMode="None">
                 <ListView.ItemTemplate  >
                     <DataTemplate >
                         <ViewCell >
@@ -99,7 +94,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <ListView x:Name="listViewMainLists" ItemsSource="{Binding Lists}" IsVisible="false" RowHeight="100" ItemTapped="listViewMainLists_ItemTapped">
+            <ListView x:Name="listViewMainLists" ItemsSource="{Binding Lists}" IsVisible="false" RowHeight="100" ItemTapped="listViewMainLists_ItemTapped" SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell >
@@ -149,7 +144,15 @@
                 <ImageButton x:Name="search"   WidthRequest="60"   Padding="-30,-30,-30,-30"  HeightRequest="60" CornerRadius="50"   HorizontalOptions="Center" BackgroundColor="White" Source="Search.png" Clicked="ImageButton_Clicked_SpeacialItems" />
                 <Label x:Name="labelSearch" WidthRequest="10" HeightRequest="5" Margin="5,0,5,0" BackgroundColor="#FFFFFF"></Label>
             </StackLayout>
+                
+            <StackLayout >
+                <ImageButton x:Name="logout"   WidthRequest="60"   Padding="5,5,5,5"  HeightRequest="60" CornerRadius="50"   HorizontalOptions="Center" BackgroundColor="White" Source="logout.png" Clicked="LogOut_Clicked" />
+                <Label x:Name="labelLogout" WidthRequest="10" HeightRequest="5" Margin="5,0,5,0" BackgroundColor="#FFFFFF"></Label>
+            </StackLayout>
+                
         </StackLayout>
+
+      
 
         <ImageButton x:Name="AddNewItemButton" Source="AddList.png"   WidthRequest="60"  HeightRequest="60" CornerRadius="30" Margin="0, 0, 20, 20" Grid.Row="0" BorderWidth="1" BorderColor="Black"   Grid.Column="0" VerticalOptions="End" HorizontalOptions="End" BackgroundColor="White"></ImageButton>
 

@@ -142,8 +142,7 @@ namespace App1.View
 
         private void LogOut_Clicked(object sender, EventArgs e)
         {
-
-
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
         }
 
 
@@ -160,22 +159,13 @@ namespace App1.View
 
         private void listViewMainDishes_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-
             Dish dish = e.Item as Dish;          
-
             Navigation.PushAsync(new DishView(dish, lvm));          
-
-            if (sender is ListView lv) lv.SelectedItem = null;
-
         }
 
         private void listViewMainSpecialOffers_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             SpecialOffer so = e.Item as SpecialOffer;
-
-          
-
-            if (sender is ListView lv) lv.SelectedItem = null;
         }
 
 
@@ -197,10 +187,7 @@ namespace App1.View
 
             await Navigation.PushAsync(new CalcRoutePage(ml, bvm));
 
-
-            if (sender is ListView lv) lv.SelectedItem = null;
-
-            await apiServices.PostList(ml);
+            //await apiServices.PostList(ml);
             
 
         }
@@ -212,7 +199,8 @@ namespace App1.View
             house.ScaleTo(0, 400, easing: Easing.CubicOut);
             list.ScaleTo(0, 400, easing: Easing.CubicOut);
             bestik.ScaleTo(0, 400, easing: Easing.CubicOut);
-            search.ScaleTo(0, 400, easing: Easing.CubicOut);         
+            search.ScaleTo(0, 400, easing: Easing.CubicOut);
+            logout.ScaleTo(0, 400, easing: Easing.CubicOut);
         }
 
         void ScaleLabelAnimation(Label label, float scale, int speed, Easing easing)
@@ -222,10 +210,11 @@ namespace App1.View
         void ScaleButtonsUpAnimation()
         {
 
-            ScaleImageButton(house, 1, 400, Easing.CubicInOut);
-            ScaleImageButton(list, 1, 650, Easing.CubicInOut);
-            ScaleImageButton(bestik, 1, 900, Easing.CubicInOut);
-            ScaleImageButton(search, 1, 1050, Easing.CubicInOut);          
+            ScaleImageButton(house, 1, 150, Easing.CubicInOut);
+            ScaleImageButton(list, 1, 400, Easing.CubicInOut);
+            ScaleImageButton(bestik, 1, 650, Easing.CubicInOut);
+            ScaleImageButton(search, 1, 900, Easing.CubicInOut);
+            ScaleImageButton(logout, 1, 1050, Easing.CubicInOut);
         }
 
         void ScaleImageButton(ImageButton iButton, float scale, int speed, Easing easingFucntion)
@@ -270,10 +259,7 @@ namespace App1.View
 
         void AnimateNavBarOut()
         {
-
-
             NavigationBar.TranslateTo(100, 0, 600, Easing.Linear);         
-
         }
 
         void AnimateNavBarIn()
