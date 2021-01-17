@@ -15,8 +15,9 @@ namespace APIGateway.DI
     {
         public static void AddRestEaseClients(this IServiceCollection services, RestEaseSettings restEaseSettings)
         {
-            var retailGroupService = restEaseSettings.Services.First(x => x.Name == "retailitemupdater-service");
-            services.AddRestEaseClient<IRetailGroupService>($"{retailGroupService.Scheme}://{retailGroupService.Host}:{retailGroupService.Port}");
+            var retailItemUpdaterService = restEaseSettings.Services.First(x => x.Name == "retailitemupdater-service");
+            services.AddRestEaseClient<IRetailGroupService>($"{retailItemUpdaterService.Scheme}://{retailItemUpdaterService.Host}:{retailItemUpdaterService.Port}");
+            services.AddRestEaseClient<IShoppingListService>($"{retailItemUpdaterService.Scheme}://{retailItemUpdaterService.Host}:{retailItemUpdaterService.Port}");
         }
     }
 }
