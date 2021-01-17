@@ -35,7 +35,7 @@ namespace App1.Services
         public async Task<HttpResponseMessage> PostList(MyList list)
         {
 
-            client.BaseAddress = new Uri("http://192.168.0.241:5000/api/RetailGroups?name=Kvickly");
+            client.BaseAddress = new Uri(Config.ConnectionConfig.GetAPIBaseAdress());
 
             string json = JsonConvert.SerializeObject(list);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");

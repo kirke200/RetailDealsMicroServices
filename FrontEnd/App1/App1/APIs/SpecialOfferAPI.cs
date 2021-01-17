@@ -31,7 +31,7 @@ namespace App1.ConnectionControllers
         public async Task<HttpResponseMessage> PostSpecialOffer(SpecialOffer so)
         {
 
-            client.BaseAddress = new Uri("http://192.168.0.241:5000/api/RetailGroups?name=Kvickly");
+            client.BaseAddress = new Uri(Config.ConnectionConfig.GetAPIBaseAdress());
 
             string json = JsonConvert.SerializeObject(so);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -54,7 +54,7 @@ namespace App1.ConnectionControllers
         public async Task<HttpResponseMessage> GetOffers()
         {
 
-            client.BaseAddress = new Uri("http://192.168.0.241:5000/api/RetailGroups?name=Kvickly");
+            client.BaseAddress = new Uri(Config.ConnectionConfig.GetAPIBaseAdress());
             var so = new List<SpecialOffer>();
 
             HttpResponseMessage response = null;

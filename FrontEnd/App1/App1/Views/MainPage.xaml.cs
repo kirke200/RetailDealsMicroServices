@@ -25,6 +25,8 @@ namespace App1.View
         ListViewModel lvm = new ListViewModel();
         BrandsViewModel bvm = new BrandsViewModel();
 
+
+
         ApiServices apiServices;
 
 
@@ -70,9 +72,11 @@ namespace App1.View
 
         }
 
-        private void ImageButton_Clicked_Lists(object sender, EventArgs e)
+        private async void ImageButton_Clicked_Lists(object sender, EventArgs e)
         {
             HeaderTitle.Text = "My Lists";
+
+
             NavBarMinimize();
 
             ChangeListView(listViewMainLists);
@@ -82,6 +86,8 @@ namespace App1.View
             NewPageSelected(labelList);
 
             AddNewItemButton.Command = GoToNewListPageCommand;
+            
+            await lvm.LoadMyLists(1337);
 
 
 
@@ -187,7 +193,7 @@ namespace App1.View
 
             await Navigation.PushAsync(new CalcRoutePage(ml, bvm));
 
-            //await apiServices.PostList(ml);
+           // await apiServices.PostList(ml);
             
 
         }

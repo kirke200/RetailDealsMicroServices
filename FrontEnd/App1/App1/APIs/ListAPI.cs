@@ -2,10 +2,10 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace App1.ConnectionControllers
 {
     class ListAPI
@@ -27,6 +27,7 @@ namespace App1.ConnectionControllers
             }
             , false
         );
+            client.BaseAddress = new Uri(Config.ConnectionConfig.GetAPIBaseAdress());
         }
 
 
@@ -34,7 +35,7 @@ namespace App1.ConnectionControllers
         public async Task<HttpResponseMessage> PostList(MyList list)
         {
 
-            client.BaseAddress = new Uri("http://192.168.0.241:5000/api/RetailGroups?name=Kvickly");
+            client.BaseAddress = new Uri(Config.ConnectionConfig.GetAPIBaseAdress());
 
             string json = JsonConvert.SerializeObject(list);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -54,30 +55,30 @@ namespace App1.ConnectionControllers
             return response;
         }
 
-        public async Task<HttpResponseMessage> GetLists()
+        public async Task<List<MyList>> GetLists(int userId)
         {
-
-            client.BaseAddress = new Uri("http://192.168.0.241:5000/api/RetailGroups?name=Kvickly");
-            var so = new List<MyList>();
+            var lists = new List<MyList>();
 
             HttpResponseMessage response = null;
 
-            response = await client.GetAsync(client.BaseAddress);
+            response = await client.GetAsync("/api/Shoppinglist/list?UserId=1337");
 
             if (response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                so = JsonConvert.DeserializeObject<List<MyList>>(content);
+                var json = JsonConvert.DeserializeObject<MyLists>(content);
+                
+                lists = json.ShoppingLists.ToList();
             }
 
             //var jsonString = response.Content.ReadAsStringAsync();
             //JsonConvert.DeserializeObject<>
-            return response;
+            return lists;
         }
 
         public async Task<HttpResponseMessage> PutList(MyList list, bool isNewItem = false)
         {
-            client.BaseAddress = new Uri("http://192.168.0.241:5000/api/RetailGroups?name=Kvickly");
+            client.BaseAddress = new Uri(Config.ConnectionConfig.GetAPIBaseAdress());
 
             string json = JsonConvert.SerializeObject(list);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -98,7 +99,7 @@ namespace App1.ConnectionControllers
         {
             var id = 1; //TODO get a real id
 
-            Uri uri = new Uri(string.Format("http://192.168.0.241:5000/api/RetailGroups?name=Kvickly", id));
+            Uri uri = new Uri(string.Format(Config.ConnectionConfig.GetAPIBaseAdress(), id));
 
             HttpResponseMessage response = null;
 

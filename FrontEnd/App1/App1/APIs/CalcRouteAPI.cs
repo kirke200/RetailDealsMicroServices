@@ -33,7 +33,7 @@ namespace App1.ConnectionControllers
         public async Task<HttpResponseMessage> PostList(MyList list, Brand brand)
         {
 
-            client.BaseAddress = new Uri("http://192.168.0.241:5000/api/RetailGroups?name=Kvickly");
+            client.BaseAddress = new Uri(Config.ConnectionConfig.GetAPIBaseAdress());
 
             var parameters = Tuple.Create(list, brand);
 
