@@ -4,7 +4,7 @@ using System.Text;
 
 namespace App1.ConnectionControllers
 {
-    class GoogleAPIController
+    class GoogleAPI
     {
     }
 }

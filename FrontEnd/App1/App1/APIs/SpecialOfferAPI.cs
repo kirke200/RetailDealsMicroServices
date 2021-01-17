@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace App1.ConnectionControllers
 {
-    class SpecialOfferAPIController
+    class SpecialOfferAPI
     {
         HttpClient client;
 
-        public SpecialOfferAPIController()
+        public SpecialOfferAPI()
         {
             client = new HttpClient
         (

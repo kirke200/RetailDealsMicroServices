@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net.Http;
-using App1.Models;
-using System.Threading.Tasks;
+﻿using App1.Models;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace App1.ConnectionControllers
 {
-    class CalcRouteAPIController
+    class DishAPI
     {
+
         HttpClient client;
 
-
-        public CalcRouteAPIController()
+        public DishAPI()
         {
             client = new HttpClient
         (
@@ -30,33 +30,26 @@ namespace App1.ConnectionControllers
         }
 
 
-        public async Task<HttpResponseMessage> PostList(MyList list, Brand brand)
+
+        public async Task<HttpResponseMessage> GetDishes()
         {
 
             client.BaseAddress = new Uri("http://192.168.0.241:5000/api/RetailGroups?name=Kvickly");
+            var dishes = new List<Dish>();
 
-            var parameters = Tuple.Create(list, brand);
-
-            string json = JsonConvert.SerializeObject(parameters);
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            //should return list of coordinates to stores, what stores to go to, list of items from what store
             HttpResponseMessage response = null;
 
             response = await client.GetAsync(client.BaseAddress);
 
             if (response.IsSuccessStatusCode)
             {
-
+                string content = await response.Content.ReadAsStringAsync();
+                dishes = JsonConvert.DeserializeObject<List<Dish>>(content);
             }
 
             //var jsonString = response.Content.ReadAsStringAsync();
             //JsonConvert.DeserializeObject<>
             return response;
         }
-
-
-
-
     }
 }

@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace App1.ConnectionControllers
 {
-    class ListAPIController
+    class ListAPI
     {
 
         HttpClient client;
 
-        public ListAPIController()
+        public ListAPI()
         {
             client = new HttpClient
         (
