@@ -36,12 +36,34 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
+        
+        
 
-
-
-
+        
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan ="2">
-            <ListView x:Name="listViewMainSpecialOffers" ItemsSource="{Binding SpecialOffers}" ItemTapped="listViewMainSpecialOffers_ItemTapped" RowHeight="100" SelectionMode="None">
+
+            <AbsoluteLayout x:Name="Carousel">
+                <CarouselView x:Name="TheCarousel" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IndicatorView="indicatorview">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <AbsoluteLayout>
+                                <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.3,AutoSize,AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" HorizontalOptions="Center">
+                                    <Image  Source="{Binding ImgUrl}" Aspect="AspectFit" HorizontalOptions="Center"/>
+                                    <Label FontSize="Title" HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="{Binding Description}" VerticalOptions="Center" />
+                                    <Label FontSize="Title" HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="{Binding Price}" VerticalOptions="Center" />
+                                </StackLayout>
+                            </AbsoluteLayout>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+
+                <IndicatorView  x:Name="indicatorview" AbsoluteLayout.LayoutBounds="0.5,0.95,100,100" AbsoluteLayout.LayoutFlags="PositionProportional" IndicatorColor="LightGray" IndicatorSize="10" SelectedIndicatorColor="Black" />
+            </AbsoluteLayout>
+
+
+
+
+            <ListView x:Name="listViewMainSpecialOffers" IsVisible="false" ItemsSource="{Binding SpecialOffers}" ItemTapped="listViewMainSpecialOffers_ItemTapped" RowHeight="100" SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell >
@@ -119,7 +141,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
 
 
 

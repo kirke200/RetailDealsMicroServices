@@ -10,7 +10,7 @@ namespace App1.View
         public App()
         {
             InitializeComponent();
-            Device.SetFlags(new string[] { "Expander_Experimental" });
+            Device.SetFlags(new string[] { "CarouselView_Experimental", "IndicatorView_Experimental" });
 
             MainPage = new NavigationPage(new SplashPage());
 

@@ -24,6 +24,7 @@ namespace App1.View
         SpecialOfferViewModel sovm = new SpecialOfferViewModel();
         ListViewModel lvm = new ListViewModel();
         BrandsViewModel bvm = new BrandsViewModel();
+        HomePageViewModel hpvm = new HomePageViewModel();
 
 
 
@@ -48,14 +49,42 @@ namespace App1.View
             GoToSpecialItemListCommand = new Command(() => Navigation.PushAsync(new SpecialOffersPage()));
             GoToNewListPageCommand = new Command(() => Navigation.PushAsync(new NewListPage(lvm)));
 
-            BindingContext = dvm;
+            BindingContext = hpvm;
 
             ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#2BED79");
 
             AnimateImageButton(AddNewItemButton, 0, 120, 0);
 
+            TheCarousel.ItemsSource = hpvm.HomePageItems;
+            SetNewItemInHomePageCarousel();
+
+        }
 
 
+        bool isCarouselRunning = false;
+        void SetNewItemInHomePageCarousel()
+        {
+            if (isCarouselRunning == true)
+                return;
+
+            var minutes = TimeSpan.FromSeconds(5);
+
+            Device.StartTimer(minutes, () => {
+
+                isCarouselRunning = true;
+
+                if (Carousel.IsVisible == false)
+                {
+                    isCarouselRunning = false;
+                    return false;
+                }
+                if (TheCarousel.Position < hpvm.HomePageItems.Count - 1)
+                    TheCarousel.Position += 1;
+                else
+                    TheCarousel.Position = 0;
+
+                return true;
+            });
         }
 
         private void ImageButton_Clicked_House(object sender, EventArgs e)
@@ -63,7 +92,9 @@ namespace App1.View
             HeaderTitle.Text = "Home";
 
             ChangeListView(null);
+            Carousel.IsVisible = true;
             NavBarMinimize();
+            SetNewItemInHomePageCarousel(); //TODO: kan måske bliver kaldt flere gange hvis den ikke er blevet reset mellem views
 
             NewPageSelected(labelHouse);
 
@@ -154,6 +185,8 @@ namespace App1.View
 
         void ChangeListView(ListView lw)
         {
+            Carousel.IsVisible = false;
+
             if (currentListView != null)
                 currentListView.IsVisible = false;
             if (lw != null)

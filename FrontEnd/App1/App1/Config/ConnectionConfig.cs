@@ -8,7 +8,7 @@ namespace App1.Config
     {
         static bool isRelease = false;
 
-        static string ApiBaseAdressDebug = "http://192.168.0.150:5000";
+        static string ApiBaseAdressDebug = "http://192.168.8.111:5000";
         static string ApiBaseAdressRelease = "http://192.168.0.150:5000/api/RetailGroups?name=Kvickly";
 
 
